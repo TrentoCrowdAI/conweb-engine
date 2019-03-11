@@ -1,7 +1,6 @@
 const puppeteer = require('puppeteer');
-const https = require('https');
-var express = require('express');
-var app = express();
+
+const engine = require('./components/engine');
 
 /*jquery library to be loaded
 start with lists of proposals
@@ -18,26 +17,62 @@ include a snapshot of how the list looks in the browser for every interaction. C
 var url;
 
 if (process.argv.length < 3) {
-    console.log("Usage:   node index.js url");
-    console.log("Example: node index.js https://nodejs.org/api/url.html");
+  console.log("Usage:   node index.js url");
+  console.log("Example: node index.js https://nodejs.org/api/url.html");
 } else {
-    url = process.argv[2];
+  url = process.argv[2];
 }
 
-(async () => {
-    const browser = await puppeteer.launch();
-    const page = await browser.newPage();
-    await page.goto(url, {waitUntil: 'networkidle2'});
-    const innerText = await page.evaluate(() => document.querySelector('li').innerText);
+var processIntent = async (request) => {
 
-    if (innerText != null)
-    {
-        console.log(innerText);
-    }
-    else
-    {
-        console.log("No lists in this webpage!");
-    }
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+
+  try {
+    await page.goto(request.url, {
+      waitUntil: 'networkidle2'
+    });
+
+    var resp = await engine.executeIntent(page, request);
 
     await browser.close();
-})();
+  } catch (err) {
+    console.log(err);
+    await browser.close();
+    return null;
+  }
+
+  return resp;
+};
+
+
+var request = {
+  url: "http://localhost:8080/static/example.html",
+  component: "list",  
+  query: { 
+    intent : "list_resources",
+    resource : {
+      name : "movies",
+      selector : "ul",
+      attributes : [{
+        name : "title",
+        selector : "h1"
+      },{
+        name : "stars",
+        selector : "[bot-attribute=stars]"
+      },{
+        name : "plot",
+        selector : "[bot-attribute=plot]"
+      }]
+    }
+  }
+};
+
+
+try {
+  processIntent(request).then(res => console.log(res));
+} catch (err) {
+  
+  console.log("Error========");
+  console.log(err);
+}
