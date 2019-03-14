@@ -46,10 +46,10 @@ var processIntent = async (request) => {
 };
 
 
-var request = {
-  url: "http://localhost:8080/static/example.html",
-  component: "list",  
-  query: { 
+/*var request = {
+  url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
+  component: "list",
+  query: {
     intent : "list_resources",
     resource : {
       name : "movies",
@@ -69,10 +69,64 @@ var request = {
 };
 
 
+var request = {
+  url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
+  component: "list",
+  query: {
+    intent : "list_count",
+    resource : {
+      name : "movies",
+      selector : "ul",
+      attributes : [{
+        name : "title",
+        selector : "h1"
+      },{
+        name : "stars",
+        selector : "[bot-attribute=stars]"
+      },{
+        name : "plot",
+        selector : "[bot-attribute=plot]"
+      }]
+    }
+  }
+};
+*/
+
+var request = {
+  url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
+  component: "list",
+  query: {
+    intent : "list_sort",
+    resource : {
+      name : "movies",
+      selector : "ul",
+      param_attr : {
+        name : "stars",
+        selector : "[bot-attribute=length]"
+      },
+      operation : "ascending",
+      attributes : [{
+        name : "title",
+        selector : "h1"
+      },{
+        name : "stars",
+        selector : "[bot-attribute=stars]"
+      },{
+        name : "plot",
+        selector : "[bot-attribute=plot]"
+    },{
+        name : "length",
+        selector : "[bot-attribute=length]"
+    }]
+    }
+  }
+};
+
+
 try {
   processIntent(request).then(res => console.log(res));
 } catch (err) {
-  
+
   console.log("Error========");
   console.log(err);
 }
