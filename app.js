@@ -90,7 +90,7 @@ var request = {
     }
   }
 };
-*/
+
 
 var request = {
   url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
@@ -120,7 +120,7 @@ var request = {
     }]
     }
   }
-};
+};*/
 
 
 try {
