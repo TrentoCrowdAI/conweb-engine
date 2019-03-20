@@ -1,5 +1,3 @@
-const puppeteer = require('puppeteer');
-
 const engine = require('./components/engine');
 
 /*jquery library to be loaded
@@ -22,29 +20,6 @@ if (process.argv.length < 3) {
 } else {
   url = process.argv[2];
 }
-
-var processIntent = async (request) => {
-
-  const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
-  const page = await browser.newPage();
-
-  try {
-    await page.goto(request.url, {
-      waitUntil: 'networkidle2'
-    });
-
-    var resp = await engine.executeIntent(page, request);
-
-    await browser.close();
-  } catch (err) {
-    console.log(err);
-    await browser.close();
-    return null;
-  }
-
-  return resp;
-};
-
 
 /*var request = {
   url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
@@ -89,11 +64,11 @@ var request = {
       }]
     }
   }
-};
+};*/
 
 
 var request = {
-  url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
+  url: "http://localhost:3000/examples/movies.html",
   component: "list",
   query: {
     intent : "list_sort",
@@ -120,11 +95,11 @@ var request = {
     }]
     }
   }
-};*/
+};
 
 
 try {
-  processIntent(request).then(res => console.log(res));
+  engine.processIntent(request).then(res => console.log(res));
 } catch (err) {
 
   console.log("Error========");
