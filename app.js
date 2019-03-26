@@ -67,35 +67,38 @@ var request = {
 };*/
 
 
+
+
 var request = {
-  url: "http://localhost:3000/examples/movies.html",
+  url: "https://dblp.uni-trier.de/db/conf/uist/uist2018.html",
   component: "list",
   query: {
-    intent : "list_sort",
-    resource : {
-      name : "movies",
-      selector : "ul",
-      param_attr : {
-        name : "stars",
-        selector : "[bot-attribute=length]"
-      },
-      operation : "ascending",
-      attributes : [{
-        name : "title",
-        selector : "h1"
-      },{
-        name : "stars",
-        selector : "[bot-attribute=stars]"
-      },{
-        name : "plot",
-        selector : "[bot-attribute=plot]"
-    },{
-        name : "length",
-        selector : "[bot-attribute=length]"
-    }]
-    }
+   intent: "list_resources",
+   resource: {
+    name: "publications",
+    selector: "ul.publ-list",
+    param_attr: {
+     name: null,
+     selector: null
+    },
+    operation: null,
+    attributes: [
+     {
+      name: "Authors",
+      selector: "span[itemprop=author]"
+     },
+     {
+      name: "Date Published",
+      selector: "span[itemprop=datePublished]"
+     },
+     {
+      name: "Genre",
+      selector: "meta[property=genre]"
+     }
+    ]
+   }
   }
-};
+ }
 
 
 try {
