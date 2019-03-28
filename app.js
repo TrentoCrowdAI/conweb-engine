@@ -15,93 +15,132 @@ include a snapshot of how the list looks in the browser for every interaction. C
 var url;
 
 if (process.argv.length < 3) {
-  console.log("Usage:   node index.js url");
-  console.log("Example: node index.js https://nodejs.org/api/url.html");
+    console.log("Usage:   node index.js url");
+    console.log("Example: node index.js https://nodejs.org/api/url.html");
 } else {
-  url = process.argv[2];
+    url = process.argv[2];
 }
 
 /*var request = {
-  url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
-  component: "list",
-  query: {
-    intent : "list_resources",
-    resource : {
-      name : "movies",
-      selector : "ul",
-      attributes : [{
-        name : "title",
-        selector : "h1"
-      },{
-        name : "stars",
-        selector : "[bot-attribute=stars]"
-      },{
-        name : "plot",
-        selector : "[bot-attribute=plot]"
-      }]
-    }
-  }
+url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
+component: "list",
+query: {
+intent : "list_resources",
+resource : {
+name : "movies",
+selector : "ul",
+attributes : [{
+name : "title",
+selector : "h1"
+},{
+name : "stars",
+selector : "[bot-attribute=stars]"
+},{
+name : "plot",
+selector : "[bot-attribute=plot]"
+}]
+}
+}
 };
 
 
 var request = {
-  url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
-  component: "list",
-  query: {
-    intent : "list_count",
-    resource : {
-      name : "movies",
-      selector : "ul",
-      attributes : [{
-        name : "title",
-        selector : "h1"
-      },{
-        name : "stars",
-        selector : "[bot-attribute=stars]"
-      },{
-        name : "plot",
-        selector : "[bot-attribute=plot]"
-      }]
-    }
-  }
+url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
+component: "list",
+query: {
+intent : "list_count",
+resource : {
+name : "movies",
+selector : "ul",
+attributes : [{
+name : "title",
+selector : "h1"
+},{
+name : "stars",
+selector : "[bot-attribute=stars]"
+},{
+name : "plot",
+selector : "[bot-attribute=plot]"
+}]
+}
+}
 };*/
 
 
-var request = {
-  url: "http://localhost:3000/examples/movies.html",
-  component: "list",
-  query: {
-    intent : "list_sort",
-    resource : {
-      name : "movies",
-      selector : "ul",
-      param_attr : {
-        name : "stars",
-        selector : "[bot-attribute=length]"
-      },
-      operation : "ascending",
-      attributes : [{
-        name : "title",
-        selector : "h1"
-      },{
-        name : "stars",
-        selector : "[bot-attribute=stars]"
-      },{
-        name : "plot",
-        selector : "[bot-attribute=plot]"
-    },{
-        name : "length",
-        selector : "[bot-attribute=length]"
-    }]
+/*var request = {
+    //url: "http://localhost:3000/examples/movies.html",
+    url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
+    component: "list",
+    query: {
+        intent : "list_sort",
+        resource : {
+            name : "movies",
+            selector : "ul",
+            param_attr : {
+                name : "stars",
+                selector : "[bot-attribute=length]"
+            },
+            operation : "reverse",
+            attributes : [{
+                name : "title",
+                selector : "h1"
+            },{
+                name : "stars",
+                selector : "[bot-attribute=stars]"
+            },{
+                name : "director",
+                selector : "[bot-attribute=director]"
+            },{
+                name : "plot",
+                selector : "[bot-attribute=plot]"
+            },{
+                name : "length",
+                selector : "[bot-attribute=length]"
+            }]
+        }
     }
-  }
+};*/
+
+var request = {
+    //url: "http://localhost:3000/examples/movies.html",
+    url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
+    component: "list",
+    query: {
+        intent : "list_filter",
+        resource : {
+            name : "movies",
+            selector : "ul",
+            param_attr : {
+                name : "director",
+                selector : "[bot-attribute=stars]",
+                value: "Quentin Tarantino"
+            },
+            operation : "different",
+            attributes : [{
+                name : "title",
+                selector : "h1"
+            },{
+                name : "stars",
+                selector : "[bot-attribute=stars]"
+            },{
+                name : "director",
+                selector : "[bot-attribute=director]"
+            },{
+                name : "plot",
+                selector : "[bot-attribute=plot]"
+            },{
+                name : "length",
+                selector : "[bot-attribute=length]"
+            }]
+        }
+    }
 };
 
 
 try {
-  engine.processIntent(request).then(res => console.log(res));
+    engine.processIntent(request).then(res => console.log(res));
 } catch (err) {
 
-  console.log("Error========");
-  console.log(err);
+    console.log("Error========");
+    console.log(err);
 }

@@ -1,34 +1,34 @@
 var List = {
-  /**
-  * List all resources
-  */
-  'list_resources': async (page, request) => {
-      const query = request.query;
+    /**
+    * List all resources
+    */
+    'list_resources': async (page, request) => {
+        const query = request.query;
 
-      // we get the items
-      var liEl = await page.$$(query.resource.selector + " > li");
+        // we get the items
+        var liEl = await page.$$(query.resource.selector + " > li");
 
-      var result = [];
+        var result = [];
 
-      // we iterate over the items and extract the attributes
-      for (var i = 0; i < liEl.length; i++) {
-        var item = liEl[i];
-        var data = {};
+        // we iterate over the items and extract the attributes
+        for (var i = 0; i < liEl.length; i++) {
+            var item = liEl[i];
+            var data = {};
 
-        // we try to extract each of the attributes in the reference resource
-        for (var j = 0; j < query.resource.attributes.length; j++) {
-          var attr = query.resource.attributes[j];
+            // we try to extract each of the attributes in the reference resource
+            for (var j = 0; j < query.resource.attributes.length; j++) {
+                var attr = query.resource.attributes[j];
 
-          try {
-            data[attr.name] = await item.$eval(attr.selector, item => item.innerHTML);
-          } catch (err) {
-            data[attr.name] = undefined;
-          }
+                try {
+                    data[attr.name] = await item.$eval(attr.selector, item => item.innerHTML);
+                } catch (err) {
+                    data[attr.name] = undefined;
+                }
+            }
+            result.push(data);
         }
-        result.push(data);
-      }
 
-      return result;
+        return result;
     },
 
     'list_count': async (page, request) => {
@@ -41,26 +41,26 @@ var List = {
 
         // we iterate over the items and extract the attributes
         for (var i = 0; i < liEl.length; i++) {
-          var item = liEl[i];
-          var data = {};
+            var item = liEl[i];
+            var data = {};
 
-          // we try to extract each of the attributes in the reference resource
-          for (var j = 0; j < query.resource.attributes.length; j++) {
-            var attr = query.resource.attributes[j];
+            // we try to extract each of the attributes in the reference resource
+            for (var j = 0; j < query.resource.attributes.length; j++) {
+                var attr = query.resource.attributes[j];
 
-            try {
-              data[attr.name] = await item.$eval(attr.selector, item => item.innerHTML);
-            } catch (err) {
-              data[attr.name] = undefined;
+                try {
+                    data[attr.name] = await item.$eval(attr.selector, item => item.innerHTML);
+                } catch (err) {
+                    data[attr.name] = undefined;
+                }
             }
-          }
-          result++;
+            result++;
         }
 
         return result;
     },
 
-    'list_sort': async (page, request) => { //TO BE IMPLEMENTED
+    'list_sort': async (page, request) => {
         const query = request.query;
 
         // we get the items
@@ -73,31 +73,32 @@ var List = {
 
         // we iterate over the items and extract the attributes
         for (var i = 0; i < liEl.length; i++) {
-          var item = liEl[i];
-          var data = {};
+            var item = liEl[i];
+            var data = {};
 
-          // we try to extract each of the attributes in the reference resource
-          for (var j = 0; j < query.resource.attributes.length; j++) {
-            var attr = query.resource.attributes[j];
+            // we try to extract each of the attributes in the reference resource
+            for (var j = 0; j < query.resource.attributes.length; j++) {
+                var attr = query.resource.attributes[j];
 
-            try {
-              data[attr.name] = await item.$eval(attr.selector, item => item.innerHTML);
-            } catch (err) {
-              data[attr.name] = undefined;
+                try {
+                    data[attr.name] = await item.$eval(attr.selector, item => item.innerHTML);
+                } catch (err) {
+                    data[attr.name] = undefined;
+                }
             }
-          }
 
-          result.push(data);
+            result.push(data);
         }
 
-        /*waiting for opcode to decide if sort needs to be done descending/ascending
-        or whatever, the different sorts will be moved in a switch accordingly*/
+        if (operation != "noop" && operation != "reverse")
+        {
+            result.sort(function (a, b)
+            {
+                return a[sortBy] < b[sortBy] ? -1 : a[sortBy] > b[sortBy] ? 1 : 0;
+            });
+        } //fails if the numbers have commas instead of dots
 
-        result.sort(function (a, b) {
-            return a[sortBy] < b[sortBy] ? -1 : a[sortBy] > b[sortBy] ? 1 : 0;
-        }); //fails if the numbers have commas instead of dots
-
-        if (operation == "descending")
+        if (operation == "descending" || operation == "reverse")
         {
             result.reverse();
         }
@@ -105,14 +106,83 @@ var List = {
         return result;
     },
 
-    'list_filter': async () => {}
+    'list_filter': async (page, request) => {
+        const query = request.query;
+
+        // we get the items
+        var liEl = await page.$$(query.resource.selector + " > li");
+
+        var result = [];
+        // we extract the sort-by-attribute
+        var filterBy = query.resource.param_attr.name;
+        var filterValue = query.resource.param_attr.value;
+        var operation = query.resource.operation;
+
+        // we iterate over the items and extract the attributes
+        for (var i = 0; i < liEl.length; i++) {
+            var item = liEl[i];
+            var data = {};
+
+            // we try to extract each of the attributes in the reference resource
+            for (var j = 0; j < query.resource.attributes.length; j++) {
+                var attr = query.resource.attributes[j];
+
+                try {
+                    data[attr.name] = await item.$eval(attr.selector, item => item.innerHTML);
+                } catch (err) {
+                    data[attr.name] = undefined;
+                }
+            }
+
+            switch (operation) {
+                case "lt":
+                if (data[filterBy] < filterValue)
+                {
+                    result.push(data);
+                }
+                break;
+                case "let":
+                if (data[filterBy] <= filterValue)
+                {
+                    result.push(data);
+                }
+                break;
+                case "gt":
+                if (data[filterBy] > filterValue)
+                {
+                    result.push(data);
+                }
+                break;
+                case "get":
+                if (data[filterBy] >= filterValue)
+                {
+                    result.push(data);
+                }
+                break;
+                case "different":
+                if (data[filterBy] != filterValue)
+                {
+                    result.push(data);
+                }
+                break;
+                case "equals":
+                if (data[filterBy] == filterValue)
+                {
+                    result.push(data);
+                }
+                break;
+            }
+        }
+
+        return result;
+    }
 
 };
 
 
 exports.executeIntent = async (page, request) => {
-  var fn = List[request.query.intent];
-  if (!fn) return null;
+    var fn = List[request.query.intent];
+    if (!fn) return null;
 
-  return await fn(page, request);
+    return await fn(page, request);
 };
