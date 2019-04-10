@@ -73,7 +73,7 @@ var List = {
             {
                 var sortBy = query.parameters[j].value;
             }
-            else if (query.parameters[j].name == "sort_type")
+            else if (query.parameters[j].name == "sort_op")
             {
                 var operation = query.parameters[j].value;
             }
@@ -126,10 +126,13 @@ var List = {
         {
             if (query.parameters[j].name == "attribute")
             {
-                var filterBy = query.parameters[j].label;
+                var filterBy = query.parameters[j].value;
+            }
+            else if (query.parameters[j].name == "attr-value") 
+            {
                 var filterValue = query.parameters[j].value;
             }
-            else if (query.parameters[j].name == "filter_type")
+            else if (query.parameters[j].name == "filter_op")
             {
                 var operation = query.parameters[j].value;
             }
@@ -152,7 +155,7 @@ var List = {
             }
 
             switch (operation) {
-                case "lt":
+                case "less":
                 if (data[filterBy] < filterValue)
                 {
                     result.push(data);
@@ -164,7 +167,7 @@ var List = {
                     result.push(data);
                 }
                 break;
-                case "gt":
+                case "greater":
                 if (data[filterBy] > filterValue)
                 {
                     result.push(data);

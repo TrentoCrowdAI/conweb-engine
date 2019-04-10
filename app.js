@@ -185,6 +185,32 @@ if (process.argv.length < 3) {
             },}
         };*/
 
+/*var request = {
+    url: "http://localhost:3000/examples/movies.html",
+    component: "list",
+    query: {
+        intent: "list_filter",
+        parameters: [{
+            name: "attr-value",
+            value: "3"
+        },{
+            name: "filter_op",
+            value: "greater"
+        }, {
+            name: "attribute",
+            value: "stars"
+        }],
+        resource: {
+            name: "movies",
+            selector: "ul",
+            attributes: [{
+                name: "stars",
+                selector: "[bot-attribute=stars]"
+            }]
+        }
+    }
+};*/
+
 
 try {
     engine.processIntent(request).then(res => console.log(res));
