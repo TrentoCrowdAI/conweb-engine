@@ -21,66 +21,78 @@ if (process.argv.length < 3) {
     url = process.argv[2];
 }
 
+//LIST RESOURCES EXAMPLE
 /*var request = {
-url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
-component: "list",
-query: {
-intent : "list_resources",
-resource : {
-name : "movies",
-selector : "ul",
-attributes : [{
-name : "title",
-selector : "h1"
-},{
-name : "stars",
-selector : "[bot-attribute=stars]"
-},{
-name : "plot",
-selector : "[bot-attribute=plot]"
-}]
-}
-}
-};
+    url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
+    component: "list",
+    query: {
+        intent : "list_resources",
+        resource : {
+            name : "movies",
+            selector : "ul",
+            attributes : [{
+                name : "title",
+                selector : "h1"
+            },{
+                name : "stars",
+                selector : "[bot-attribute=stars]"
+            },{
+                name : "director",
+                selector : "[bot-attribute=director]"
+            },{
+                name : "plot",
+                selector : "[bot-attribute=plot]"
+            },{
+                name : "length",
+                selector : "[bot-attribute=length]"
+            }]
+        },}
+    };*/
 
-
-var request = {
-url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
-component: "list",
-query: {
-intent : "list_count",
-resource : {
-name : "movies",
-selector : "ul",
-attributes : [{
-name : "title",
-selector : "h1"
-},{
-name : "stars",
-selector : "[bot-attribute=stars]"
-},{
-name : "plot",
-selector : "[bot-attribute=plot]"
-}]
-}
-}
-};*/
-
-
+//LIST COUNT EXAMPLE
 /*var request = {
-    //url: "http://localhost:3000/examples/movies.html",
+    url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
+    component: "list",
+    query: {
+        intent : "list_count",
+        resource : {
+            name : "movies",
+            selector : "ul",
+            attributes : [{
+                name : "title",
+                selector : "h1"
+            },{
+                name : "stars",
+                selector : "[bot-attribute=stars]"
+            },{
+                name : "director",
+                selector : "[bot-attribute=director]"
+            },{
+                name : "plot",
+                selector : "[bot-attribute=plot]"
+            },{
+                name : "length",
+                selector : "[bot-attribute=length]"
+            }]
+        },}
+    };*/
+
+//LIST SORT EXAMPLE
+/*var request = {
     url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
     component: "list",
     query: {
         intent : "list_sort",
+        parameters : [{
+            name : "attribute",
+            value : "stars"
+        },{
+            name : "sort_type",
+            value : "descending"
+        }],
         resource : {
             name : "movies",
             selector : "ul",
-            param_attr : {
-                name : "stars",
-                selector : "[bot-attribute=length]"
-            },
-            operation : "reverse",
             attributes : [{
                 name : "title",
                 selector : "h1"
@@ -97,25 +109,27 @@ selector : "[bot-attribute=plot]"
                 name : "length",
                 selector : "[bot-attribute=length]"
             }]
-        }
-    }
-};*/
+        },}
+    };*/
 
-var request = {
-    //url: "http://localhost:3000/examples/movies.html",
+//LIST FILTER EXAMPLE
+/*var request = {
     url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
     component: "list",
     query: {
         intent : "list_filter",
+        parameters : [{
+            name : "attribute",
+            label: "director",
+            value : "Quentin Tarantino"
+        },{
+            name : "filter_type",
+            //value : "different"
+            value: "equals"
+        }],
         resource : {
             name : "movies",
             selector : "ul",
-            param_attr : {
-                name : "director",
-                selector : "[bot-attribute=stars]",
-                value: "Quentin Tarantino"
-            },
-            operation : "different",
             attributes : [{
                 name : "title",
                 selector : "h1"
@@ -132,9 +146,44 @@ var request = {
                 name : "length",
                 selector : "[bot-attribute=length]"
             }]
-        }
-    }
-};
+        },}
+    };*/
+
+/*var request = {
+        url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
+        component: "list",
+        query: {
+            intent : "list_filter",
+            parameters : [{
+                name : "attribute",
+                label: "stars",
+                value : "4.7"
+            },{
+                name : "filter_type",
+                value : "get"
+                //value: "equals"
+            }],
+            resource : {
+                name : "movies",
+                selector : "ul",
+                attributes : [{
+                    name : "title",
+                    selector : "h1"
+                },{
+                    name : "stars",
+                    selector : "[bot-attribute=stars]"
+                },{
+                    name : "director",
+                    selector : "[bot-attribute=director]"
+                },{
+                    name : "plot",
+                    selector : "[bot-attribute=plot]"
+                },{
+                    name : "length",
+                    selector : "[bot-attribute=length]"
+                }]
+            },}
+        };*/
 
 
 try {

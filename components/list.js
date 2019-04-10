@@ -65,11 +65,19 @@ var List = {
 
         // we get the items
         var liEl = await page.$$(query.resource.selector + " > li");
-
         var result = [];
         // we extract the sort-by-attribute
-        var sortBy = query.resource.param_attr.name;
-        var operation = query.resource.operation;
+        for(var j = 0; j < query.parameters.length; j++)
+        {
+            if (query.parameters[j].name == "attribute")
+            {
+                var sortBy = query.parameters[j].value;
+            }
+            else if (query.parameters[j].name == "sort_type")
+            {
+                var operation = query.parameters[j].value;
+            }
+        }
 
         // we iterate over the items and extract the attributes
         for (var i = 0; i < liEl.length; i++) {
@@ -114,9 +122,18 @@ var List = {
 
         var result = [];
         // we extract the sort-by-attribute
-        var filterBy = query.resource.param_attr.name;
-        var filterValue = query.resource.param_attr.value;
-        var operation = query.resource.operation;
+        for(var j = 0; j < query.parameters.length; j++)
+        {
+            if (query.parameters[j].name == "attribute")
+            {
+                var filterBy = query.parameters[j].label;
+                var filterValue = query.parameters[j].value;
+            }
+            else if (query.parameters[j].name == "filter_type")
+            {
+                var operation = query.parameters[j].value;
+            }
+        }
 
         // we iterate over the items and extract the attributes
         for (var i = 0; i < liEl.length; i++) {
