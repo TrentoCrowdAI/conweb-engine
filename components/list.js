@@ -20,7 +20,7 @@ var List = {
                 var attr = query.resource.attributes[j];
 
                 try {
-                    data[attr.name] = await item.$eval(attr.selector, item => item.innerHTML);
+                    data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
                 } catch (err) {
                     data[attr.name] = undefined;
                 }
@@ -49,7 +49,7 @@ var List = {
                 var attr = query.resource.attributes[j];
 
                 try {
-                    data[attr.name] = await item.$eval(attr.selector, item => item.innerHTML);
+                    data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
                 } catch (err) {
                     data[attr.name] = undefined;
                 }
@@ -81,7 +81,7 @@ var List = {
                 var attr = query.resource.attributes[j];
 
                 try {
-                    data[attr.name] = await item.$eval(attr.selector, item => item.innerHTML);
+                    data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
                 } catch (err) {
                     data[attr.name] = undefined;
                 }
@@ -128,7 +128,7 @@ var List = {
                 var attr = query.resource.attributes[j];
 
                 try {
-                    data[attr.name] = await item.$eval(attr.selector, item => item.innerHTML);
+                    data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
                 } catch (err) {
                     data[attr.name] = undefined;
                 }
