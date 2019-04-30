@@ -128,7 +128,7 @@ var List = {
             {
                 var filterBy = query.parameters[j].value;
             }
-            else if (query.parameters[j].name == "attr-value") 
+            else if (query.parameters[j].name == "attr-value")
             {
                 var filterValue = query.parameters[j].value;
             }
@@ -190,6 +190,93 @@ var List = {
                 {
                     result.push(data);
                 }
+                break;
+            }
+        }
+
+        return result;
+    },
+
+    'list_about': async (page, request) => {
+        const query = request.query;
+
+        // we get the items
+        var liEl = await page.$$(query.resource.selector + " > li");
+
+        var result = [];
+
+        // we iterate over the items and extract the attributes
+        try {
+            for (var j = 0; j < query.resource.attributes.length; j++) {
+                var attr = query.resource.attributes[j];
+                result.push(attr.name);
+            }
+        }
+        catch (err)
+        {
+            result = {}
+        }
+
+        return result;
+    },
+
+    'list_summary': async (page, request) => {
+        //Summarizes a list, NOTE: only working with only and remove as op codes
+        const query = request.query;
+
+        // we get the items
+        var liEl = await page.$$(query.resource.selector + " > li");
+
+        var result = [];
+        // we extract the to be summarized attribute
+        for(var j = 0; j < query.parameters.length; j++)
+        {
+            if (query.parameters[j].name == "attribute")
+            {
+                var summarizeBy = query.parameters[j].value;
+            }
+            else if (query.parameters[j].name == "summary_op")
+            {
+                var operation = query.parameters[j].value;
+            }
+        }
+
+        // we iterate over the items and extract the attributes
+        for (var i = 0; i < liEl.length; i++) {
+            var item = liEl[i];
+            var data = {};
+
+            // we try to extract each of the attributes in the reference resource
+            for (var j = 0; j < query.resource.attributes.length; j++) {
+                var attr = query.resource.attributes[j];
+
+                try {
+                    data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                } catch (err) {
+                    data[attr.name] = undefined;
+                }
+            }
+
+            switch (operation) {
+                case "only":
+                var temp = []
+                summarizeBy.forEach(function(summarizeAttr) {
+                    Object.keys(data).forEach(function(key) {
+                        // key: the name of the object property
+                        if(key == summarizeAttr)
+                        {
+                            temp[key] = data[key];
+                        }
+                    });
+                });
+                result.push(temp);
+                break;
+                case "remove":
+                var temp = []
+                summarizeBy.forEach(function(summarizeAttr) {
+                    delete data[summarizeAttr];
+                });
+                result.push(data);
                 break;
             }
         }

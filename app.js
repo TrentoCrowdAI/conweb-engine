@@ -117,15 +117,80 @@ if (process.argv.length < 3) {
     url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
     component: "list",
     query: {
-        intent : "list_filter",
-        parameters : [{
-            name : "attribute",
-            label: "director",
-            value : "Quentin Tarantino"
+        intent: "list_filter",
+        parameters: [{
+            name: "attr-value",
+            value: "4.5"
         },{
-            name : "filter_type",
-            //value : "different"
-            value: "equals"
+            name: "filter_op",
+            value: "greater"
+        }, {
+            name: "attribute",
+            value: "stars"
+        }],
+        resource: {
+            name: "movies",
+            selector: "ul",
+            attributes : [{
+                name : "title",
+                selector : "h1"
+            },{
+                name : "stars",
+                selector : "[bot-attribute=stars]"
+            },{
+                name : "director",
+                selector : "[bot-attribute=director]"
+            },{
+                name : "plot",
+                selector : "[bot-attribute=plot]"
+            },{
+                name : "length",
+                selector : "[bot-attribute=length]"
+            }]
+        }
+    }
+};*/
+
+//LIST ABOUT EXAMPLE
+/*var request = {
+    url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
+    component: "list",
+    query: {
+        intent : "list_about",
+        resource : {
+            name : "movies",
+            selector : "ul",
+            attributes : [{
+                name : "title",
+                selector : "h1"
+            },{
+                name : "stars",
+                selector : "[bot-attribute=stars]"
+            },{
+                name : "director",
+                selector : "[bot-attribute=director]"
+            },{
+                name : "plot",
+                selector : "[bot-attribute=plot]"
+            },{
+                name : "length",
+                selector : "[bot-attribute=length]"
+            }]
+        },}
+    };*/
+
+//LIST SUMMARY ONLY EXAMPLE
+/*var request = {
+    url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
+    component: "list",
+    query: {
+        intent : "list_summary",
+        parameters: [{
+            name: "summary_op",
+            value: "only"
+        }, {
+            name: "attribute",
+            value: ["title", "stars"]
         }],
         resource : {
             name : "movies",
@@ -149,67 +214,40 @@ if (process.argv.length < 3) {
         },}
     };*/
 
+//LIST SUMMARY REMOVE EXAMPLE
 /*var request = {
-        url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
-        component: "list",
-        query: {
-            intent : "list_filter",
-            parameters : [{
-                name : "attribute",
-                label: "stars",
-                value : "4.7"
-            },{
-                name : "filter_type",
-                value : "get"
-                //value: "equals"
-            }],
-            resource : {
-                name : "movies",
-                selector : "ul",
-                attributes : [{
-                    name : "title",
-                    selector : "h1"
-                },{
-                    name : "stars",
-                    selector : "[bot-attribute=stars]"
-                },{
-                    name : "director",
-                    selector : "[bot-attribute=director]"
-                },{
-                    name : "plot",
-                    selector : "[bot-attribute=plot]"
-                },{
-                    name : "length",
-                    selector : "[bot-attribute=length]"
-                }]
-            },}
-        };*/
-
-/*var request = {
-    url: "http://localhost:3000/examples/movies.html",
+    url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
     component: "list",
     query: {
-        intent: "list_filter",
+        intent : "list_summary",
         parameters: [{
-            name: "attr-value",
-            value: "3"
-        },{
-            name: "filter_op",
-            value: "greater"
+            name: "summary_op",
+            value: "remove"
         }, {
             name: "attribute",
-            value: "stars"
+            value: ["plot", "stars"]
         }],
-        resource: {
-            name: "movies",
-            selector: "ul",
-            attributes: [{
-                name: "stars",
-                selector: "[bot-attribute=stars]"
+        resource : {
+            name : "movies",
+            selector : "ul",
+            attributes : [{
+                name : "title",
+                selector : "h1"
+            },{
+                name : "stars",
+                selector : "[bot-attribute=stars]"
+            },{
+                name : "director",
+                selector : "[bot-attribute=director]"
+            },{
+                name : "plot",
+                selector : "[bot-attribute=plot]"
+            },{
+                name : "length",
+                selector : "[bot-attribute=length]"
             }]
-        }
-    }
-};*/
+        },}
+    };*/
 
 
 try {
