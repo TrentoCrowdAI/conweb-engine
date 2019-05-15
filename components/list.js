@@ -6,7 +6,7 @@ var List = {
         const query = request.query;
 
         // we get the items
-        var liEl = await page.$$(query.resource.selector + " > li");
+        var liEl = await page.$$(query.resource.selector.container + " " + query.resource.selector.item);
 
         var result = [];
 
@@ -35,7 +35,7 @@ var List = {
         const query = request.query;
 
         // we get the items
-        var liEl = await page.$$(query.resource.selector + " > li");
+        var liEl = await page.$$(query.resource.selector.container + " " + query.resource.selector.item);
 
         var result = 0;
 
@@ -64,7 +64,7 @@ var List = {
         const query = request.query;
 
         // we get the items
-        var liEl = await page.$$(query.resource.selector + " > li");
+        var liEl = await page.$$(query.resource.selector.container + " " + query.resource.selector.item);
         var result = [];
         // we extract the sort-by-attribute
         for(var j = 0; j < query.parameters.length; j++)
@@ -73,7 +73,7 @@ var List = {
             {
                 var sortBy = query.parameters[j].value;
             }
-            else if (query.parameters[j].name == "sort_op")
+            else if (query.parameters[j].name == "sort_type")
             {
                 var operation = query.parameters[j].value;
             }
@@ -118,7 +118,7 @@ var List = {
         const query = request.query;
 
         // we get the items
-        var liEl = await page.$$(query.resource.selector + " > li");
+        var liEl = await page.$$(query.resource.selector.container + " " + query.resource.selector.item);
 
         var result = [];
         // we extract the sort-by-attribute
@@ -201,7 +201,7 @@ var List = {
         const query = request.query;
 
         // we get the items
-        var liEl = await page.$$(query.resource.selector + " > li");
+        var liEl = await page.$$(query.resource.selector.container + " " + query.resource.selector.item);
 
         var result = [];
 
@@ -225,7 +225,7 @@ var List = {
         const query = request.query;
 
         // we get the items
-        var liEl = await page.$$(query.resource.selector + " > li");
+        var liEl = await page.$$(query.resource.selector.container + " " + query.resource.selector.item);
 
         var result = [];
         // we extract the to be summarized attribute

@@ -22,32 +22,58 @@ if (process.argv.length < 3) {
 }
 
 //LIST RESOURCES EXAMPLE
-/*var request = {
-    url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
-    component: "list",
-    query: {
-        intent : "list_resources",
-        resource : {
-            name : "movies",
-            selector : "ul",
-            attributes : [{
-                name : "title",
-                selector : "h1"
-            },{
-                name : "stars",
-                selector : "[bot-attribute=stars]"
-            },{
-                name : "director",
-                selector : "[bot-attribute=director]"
-            },{
-                name : "plot",
-                selector : "[bot-attribute=plot]"
-            },{
-                name : "length",
-                selector : "[bot-attribute=length]"
-            }]
-        },}
-    };*/
+    /*var request = {
+        url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
+        component: "list",
+        query: {
+            intent : "list_resources",
+            resource : {
+                name : "movies",
+                selector: { container: "ul#mv", item: ["li"] },
+                type: "movies",
+                attributes : [{
+                    name : "title",
+                    selector : "h1"
+                },{
+                    name : "stars",
+                    selector : "[bot-attribute=stars]"
+                },{
+                    name : "director",
+                    selector : "[bot-attribute=director]"
+                },{
+                    name : "plot",
+                    selector : "[bot-attribute=plot]"
+                },{
+                    name : "length",
+                    selector : "[bot-attribute=length]"
+                }]
+            },}
+        };*/
+
+    /*var request = {
+        url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
+        component: "list",
+        query: {
+            intent : "list_resources",
+            resource : {
+                name : "sports",
+                selector: { container: "ul#sn", item: ["li"] },
+                type: "sport news",
+                attributes : [{
+                    name : "Category",
+                    selector : "h1"
+                },{
+                    name : "News #1",
+                    selector : "[bot-attribute=n1]"
+                },{
+                    name : "News #2",
+                    selector : "[bot-attribute=n2]"
+                },{
+                    name : "News #3",
+                    selector : "[bot-attribute=n3]"
+                }]
+            },}
+        };*/
 
 //LIST COUNT EXAMPLE
 /*var request = {
@@ -57,7 +83,8 @@ if (process.argv.length < 3) {
         intent : "list_count",
         resource : {
             name : "movies",
-            selector : "ul",
+            selector: { container: "ul#mv", item: ["li"] },
+            type: "movies",
             attributes : [{
                 name : "title",
                 selector : "h1"
@@ -92,7 +119,8 @@ if (process.argv.length < 3) {
         }],
         resource : {
             name : "movies",
-            selector : "ul",
+            selector: { container: "ul#mv", item: ["li"] },
+            type: "movies",
             attributes : [{
                 name : "title",
                 selector : "h1"
@@ -130,7 +158,8 @@ if (process.argv.length < 3) {
         }],
         resource: {
             name: "movies",
-            selector: "ul",
+            selector: { container: "ul#mv", item: ["li"] },
+            type: "movies",
             attributes : [{
                 name : "title",
                 selector : "h1"
@@ -159,7 +188,8 @@ if (process.argv.length < 3) {
         intent : "list_about",
         resource : {
             name : "movies",
-            selector : "ul",
+            selector: { container: "ul#mv", item: ["li"] },
+            type: "movies",
             attributes : [{
                 name : "title",
                 selector : "h1"
@@ -194,7 +224,8 @@ if (process.argv.length < 3) {
         }],
         resource : {
             name : "movies",
-            selector : "ul",
+            selector: { container: "ul#mv", item: ["li"] },
+            type: "movies",
             attributes : [{
                 name : "title",
                 selector : "h1"
@@ -229,7 +260,8 @@ if (process.argv.length < 3) {
         }],
         resource : {
             name : "movies",
-            selector : "ul",
+            selector: { container: "ul#mv", item: ["li"] },
+            type: "movies",
             attributes : [{
                 name : "title",
                 selector : "h1"
