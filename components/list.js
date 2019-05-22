@@ -6,26 +6,31 @@ var List = {
         const query = request.query;
 
         // we get the items
-        var liEl = await page.$$(query.resource.selector.container + " " + query.resource.selector.item);
-
         var result = [];
 
-        // we iterate over the items and extract the attributes
-        for (var i = 0; i < liEl.length; i++) {
-            var item = liEl[i];
-            var data = {};
+        for(var s = 0; s < query.resource.selector.item.length; s++)
+        {
+            var item = query.resource.selector.container + " " + query.resource.selector.item[s];
 
-            // we try to extract each of the attributes in the reference resource
-            for (var j = 0; j < query.resource.attributes.length; j++) {
-                var attr = query.resource.attributes[j];
+            var liEl = await page.$$(item);
 
-                try {
-                    data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
-                } catch (err) {
-                    data[attr.name] = undefined;
+            // we iterate over the items and extract the attributes
+            for (var i = 0; i < liEl.length; i++) {
+                var item = liEl[i];
+                var data = {};
+
+                // we try to extract each of the attributes in the reference resource
+                for (var j = 0; j < query.resource.attributes.length; j++) {
+                    var attr = query.resource.attributes[j];
+
+                    try {
+                        data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                    } catch (err) {
+                        data[attr.name] = undefined;
+                    }
                 }
+                result.push(data);
             }
-            result.push(data);
         }
 
         return result;
@@ -35,26 +40,31 @@ var List = {
         const query = request.query;
 
         // we get the items
-        var liEl = await page.$$(query.resource.selector.container + " " + query.resource.selector.item);
-
         var result = 0;
 
-        // we iterate over the items and extract the attributes
-        for (var i = 0; i < liEl.length; i++) {
-            var item = liEl[i];
-            var data = {};
+        for(var s = 0; s < query.resource.selector.item.length; s++)
+        {
+            var item = query.resource.selector.container + " " + query.resource.selector.item[s];
 
-            // we try to extract each of the attributes in the reference resource
-            for (var j = 0; j < query.resource.attributes.length; j++) {
-                var attr = query.resource.attributes[j];
+            var liEl = await page.$$(item);
 
-                try {
-                    data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
-                } catch (err) {
-                    data[attr.name] = undefined;
+            // we iterate over the items and extract the attributes
+            for (var i = 0; i < liEl.length; i++) {
+                var item = liEl[i];
+                var data = {};
+
+                // we try to extract each of the attributes in the reference resource
+                for (var j = 0; j < query.resource.attributes.length; j++) {
+                    var attr = query.resource.attributes[j];
+
+                    try {
+                        data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                    } catch (err) {
+                        data[attr.name] = undefined;
+                    }
                 }
+                result++;
             }
-            result++;
         }
 
         return result;
@@ -63,9 +73,8 @@ var List = {
     'list_sort': async (page, request) => {
         const query = request.query;
 
-        // we get the items
-        var liEl = await page.$$(query.resource.selector.container + " " + query.resource.selector.item);
         var result = [];
+
         // we extract the sort-by-attribute
         for(var j = 0; j < query.parameters.length; j++)
         {
@@ -79,24 +88,32 @@ var List = {
             }
         }
 
-        // we iterate over the items and extract the attributes
-        for (var i = 0; i < liEl.length; i++) {
-            var item = liEl[i];
-            var data = {};
+        // we get the items
+        for(var s = 0; s < query.resource.selector.item.length; s++)
+        {
+            var item = query.resource.selector.container + " " + query.resource.selector.item[s];
 
-            // we try to extract each of the attributes in the reference resource
-            for (var j = 0; j < query.resource.attributes.length; j++) {
-                var attr = query.resource.attributes[j];
+            var liEl = await page.$$(item);
 
-                try {
-                    data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
-                } catch (err) {
-                    data[attr.name] = undefined;
+            // we iterate over the items and extract the attributes
+            for (var i = 0; i < liEl.length; i++) {
+                var item = liEl[i];
+                var data = {};
+
+                // we try to extract each of the attributes in the reference resource
+                for (var j = 0; j < query.resource.attributes.length; j++) {
+                    var attr = query.resource.attributes[j];
+
+                    try {
+                        data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                    } catch (err) {
+                        data[attr.name] = undefined;
+                    }
                 }
-            }
 
-            result.push(data);
-        }
+                result.push(data);
+            }
+    }
 
         if (operation != "noop" && operation != "reverse")
         {
@@ -115,12 +132,11 @@ var List = {
     },
 
     'list_filter': async (page, request) => {
+        //TOBEFIXED
         const query = request.query;
 
-        // we get the items
-        var liEl = await page.$$(query.resource.selector.container + " " + query.resource.selector.item);
-
         var result = [];
+
         // we extract the sort-by-attribute
         for(var j = 0; j < query.parameters.length; j++)
         {
@@ -138,59 +154,67 @@ var List = {
             }
         }
 
-        // we iterate over the items and extract the attributes
-        for (var i = 0; i < liEl.length; i++) {
-            var item = liEl[i];
-            var data = {};
+        // we get the items
+        for(var s = 0; s < query.resource.selector.item.length; s++)
+        {
+            var item = query.resource.selector.container + " " + query.resource.selector.item[s];
 
-            // we try to extract each of the attributes in the reference resource
-            for (var j = 0; j < query.resource.attributes.length; j++) {
-                var attr = query.resource.attributes[j];
+            var liEl = await page.$$(item);
 
-                try {
-                    data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
-                } catch (err) {
-                    data[attr.name] = undefined;
-                }
-            }
+            // we iterate over the items and extract the attributes
+            for (var i = 0; i < liEl.length; i++) {
+                var item = liEl[i];
+                var data = {};
 
-            switch (operation) {
-                case "less":
-                if (data[filterBy] < filterValue)
-                {
-                    result.push(data);
+                // we try to extract each of the attributes in the reference resource
+                for (var j = 0; j < query.resource.attributes.length; j++) {
+                    var attr = query.resource.attributes[j];
+
+                    try {
+                        data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                    } catch (err) {
+                        data[attr.name] = undefined;
+                    }
                 }
-                break;
-                case "let":
-                if (data[filterBy] <= filterValue)
-                {
-                    result.push(data);
+
+                switch (operation) {
+                    case "less":
+                    if (data[filterBy] < filterValue)
+                    {
+                        result.push(data);
+                    }
+                    break;
+                    case "let":
+                    if (data[filterBy] <= filterValue)
+                    {
+                        result.push(data);
+                    }
+                    break;
+                    case "greater":
+                    if (data[filterBy] > filterValue)
+                    {
+                        result.push(data);
+                    }
+                    break;
+                    case "get":
+                    if (data[filterBy] >= filterValue)
+                    {
+                        result.push(data);
+                    }
+                    break;
+                    case "different":
+                    if (data[filterBy] != filterValue)
+                    {
+                        result.push(data);
+                    }
+                    break;
+                    case "equals":
+                    if (data[filterBy] == filterValue)
+                    {
+                        result.push(data);
+                    }
+                    break;
                 }
-                break;
-                case "greater":
-                if (data[filterBy] > filterValue)
-                {
-                    result.push(data);
-                }
-                break;
-                case "get":
-                if (data[filterBy] >= filterValue)
-                {
-                    result.push(data);
-                }
-                break;
-                case "different":
-                if (data[filterBy] != filterValue)
-                {
-                    result.push(data);
-                }
-                break;
-                case "equals":
-                if (data[filterBy] == filterValue)
-                {
-                    result.push(data);
-                }
-                break;
             }
         }
 
@@ -200,21 +224,26 @@ var List = {
     'list_about': async (page, request) => {
         const query = request.query;
 
-        // we get the items
-        var liEl = await page.$$(query.resource.selector.container + " " + query.resource.selector.item);
-
         var result = [];
 
-        // we iterate over the items and extract the attributes
-        try {
-            for (var j = 0; j < query.resource.attributes.length; j++) {
-                var attr = query.resource.attributes[j];
-                result.push(attr.name);
-            }
-        }
-        catch (err)
+        // we get the items
+        for(var s = 0; s < query.resource.selector.item.length; s++)
         {
-            result = {}
+            var item = query.resource.selector.container + " " + query.resource.selector.item[s];
+
+            var liEl = await page.$$(item);
+
+            // we iterate over the items and extract the attributes
+            try {
+                for (var j = 0; j < query.resource.attributes.length; j++) {
+                    var attr = query.resource.attributes[j];
+                    result.push(attr.name);
+                }
+            }
+            catch (err)
+            {
+                result = {}
+            }
         }
 
         return result;
@@ -224,10 +253,6 @@ var List = {
         //Summarizes a list, NOTE: only working with only and remove as op codes
         const query = request.query;
 
-        // we get the items
-        var liEl = await page.$$(query.resource.selector.container + " " + query.resource.selector.item);
-
-        var result = [];
         // we extract the to be summarized attribute
         for(var j = 0; j < query.parameters.length; j++)
         {
@@ -241,43 +266,53 @@ var List = {
             }
         }
 
-        // we iterate over the items and extract the attributes
-        for (var i = 0; i < liEl.length; i++) {
-            var item = liEl[i];
-            var data = {};
+        var result = [];
 
-            // we try to extract each of the attributes in the reference resource
-            for (var j = 0; j < query.resource.attributes.length; j++) {
-                var attr = query.resource.attributes[j];
+        // we get the items
+        for(var s = 0; s < query.resource.selector.item.length; s++)
+        {
+            var item = query.resource.selector.container + " " + query.resource.selector.item[s];
 
-                try {
-                    data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
-                } catch (err) {
-                    data[attr.name] = undefined;
+            var liEl = await page.$$(item);
+
+            // we iterate over the items and extract the attributes
+            for (var i = 0; i < liEl.length; i++) {
+                var item = liEl[i];
+                var data = {};
+
+                // we try to extract each of the attributes in the reference resource
+                for (var j = 0; j < query.resource.attributes.length; j++) {
+                    var attr = query.resource.attributes[j];
+
+                    try {
+                        data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                    } catch (err) {
+                        data[attr.name] = undefined;
+                    }
                 }
-            }
 
-            switch (operation) {
-                case "only":
-                var temp = []
-                summarizeBy.forEach(function(summarizeAttr) {
-                    Object.keys(data).forEach(function(key) {
-                        // key: the name of the object property
-                        if(key == summarizeAttr)
-                        {
-                            temp[key] = data[key];
-                        }
+                switch (operation) {
+                    case "only":
+                    var temp = []
+                    summarizeBy.forEach(function(summarizeAttr) {
+                        Object.keys(data).forEach(function(key) {
+                            // key: the name of the object property
+                            if(key == summarizeAttr)
+                            {
+                                temp[key] = data[key];
+                            }
+                        });
                     });
-                });
-                result.push(temp);
-                break;
-                case "remove":
-                var temp = []
-                summarizeBy.forEach(function(summarizeAttr) {
-                    delete data[summarizeAttr];
-                });
-                result.push(data);
-                break;
+                    result.push(temp);
+                    break;
+                    case "remove":
+                    var temp = []
+                    summarizeBy.forEach(function(summarizeAttr) {
+                        delete data[summarizeAttr];
+                    });
+                    result.push(data);
+                    break;
+                }
             }
         }
 

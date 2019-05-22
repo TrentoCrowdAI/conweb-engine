@@ -75,6 +75,31 @@ if (process.argv.length < 3) {
             },}
         };*/
 
+        /*var request = {
+            url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
+            component: "list",
+            query: {
+                intent : "list_resources",
+                resource : {
+                    name : "sports",
+                    selector: { container: "div#sa", item: ["article", "div.o-herobox-card"]},
+                    type: "serie A",
+                    attributes : [{
+                        name : "Category",
+                        selector : "h1"
+                    },{
+                        name : "News #1",
+                        selector : "[bot-attribute=n1]"
+                    },{
+                        name : "News #2",
+                        selector : "[bot-attribute=n2]"
+                    },{
+                        name : "News #3",
+                        selector : "[bot-attribute=n3]"
+                    }]
+                },}
+            };*/
+
 //LIST COUNT EXAMPLE
 /*var request = {
     url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
@@ -103,6 +128,31 @@ if (process.argv.length < 3) {
             }]
         },}
     };*/
+
+    /*var request = {
+        url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
+        component: "list",
+        query: {
+            intent : "list_count",
+            resource : {
+                name : "sports",
+                selector: { container: "div#sa", item: ["article", "div.o-herobox-card"]},
+                type: "serie A",
+                attributes : [{
+                    name : "Category",
+                    selector : "h1"
+                },{
+                    name : "News #1",
+                    selector : "[bot-attribute=n1]"
+                },{
+                    name : "News #2",
+                    selector : "[bot-attribute=n2]"
+                },{
+                    name : "News #3",
+                    selector : "[bot-attribute=n3]"
+                }]
+            },}
+        };*/
 
 //LIST SORT EXAMPLE
 /*var request = {
@@ -139,6 +189,38 @@ if (process.argv.length < 3) {
             }]
         },}
     };*/
+
+    /*var request = {
+        url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
+        component: "list",
+        query: {
+            intent : "list_sort",
+            parameters : [{
+                name : "attribute",
+                value : "n2"
+            },{
+                name : "sort_type",
+                value : "descending"
+            }],
+            resource : {
+                name : "sports",
+                selector: { container: "div#sa", item: ["article", "div.o-herobox-card"]},
+                type: "serie A",
+                attributes : [{
+                    name : "Category",
+                    selector : "h1"
+                },{
+                    name : "News #1",
+                    selector : "[bot-attribute=n1]"
+                },{
+                    name : "News #2",
+                    selector : "[bot-attribute=n2]"
+                },{
+                    name : "News #3",
+                    selector : "[bot-attribute=n3]"
+                }]
+            },}
+        };*/
 
 //LIST FILTER EXAMPLE
 /*var request = {
@@ -180,6 +262,41 @@ if (process.argv.length < 3) {
     }
 };*/
 
+/*var request = {
+    url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
+    component: "list",
+    query: {
+        intent : "list_filter",
+        parameters: [{
+            name: "attr-value",
+            value: "Udinese"
+        },{
+            name: "filter_op",
+            value: "equals"
+        }, {
+            name: "attribute",
+            value: "n3"
+        }],
+        resource : {
+            name : "sports",
+            selector: { container: "div#sa", item: ["article", "div.o-herobox-card"]},
+            type: "serie A",
+            attributes : [{
+                name : "Category",
+                selector : "h1"
+            },{
+                name : "News #1",
+                selector : "[bot-attribute=n1]"
+            },{
+                name : "News #2",
+                selector : "[bot-attribute=n2]"
+            },{
+                name : "News #3",
+                selector : "[bot-attribute=n3]"
+            }]
+        },}
+    };*/
+
 //LIST ABOUT EXAMPLE
 /*var request = {
     url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
@@ -208,6 +325,31 @@ if (process.argv.length < 3) {
             }]
         },}
     };*/
+
+    /*var request = {
+        url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
+        component: "list",
+        query: {
+            intent : "list_about",
+            resource : {
+                name : "sports",
+                selector: { container: "div#sa", item: ["article", "div.o-herobox-card"]},
+                type: "serie A",
+                attributes : [{
+                    name : "Category",
+                    selector : "h1"
+                },{
+                    name : "News #1",
+                    selector : "[bot-attribute=n1]"
+                },{
+                    name : "News #2",
+                    selector : "[bot-attribute=n2]"
+                },{
+                    name : "News #3",
+                    selector : "[bot-attribute=n3]"
+                }]
+            },}
+        };*/
 
 //LIST SUMMARY ONLY EXAMPLE
 /*var request = {
@@ -244,6 +386,38 @@ if (process.argv.length < 3) {
             }]
         },}
     };*/
+
+    /*var request = {
+        url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
+        component: "list",
+        query: {
+            intent : "list_summary",
+            parameters: [{
+                name: "summary_op",
+                value: "only"
+            }, {
+                name: "attribute",
+                value: ["n1", "n3"]
+            }],
+            resource : {
+                name : "sports",
+                selector: { container: "div#sa", item: ["article", "div.o-herobox-card"]},
+                type: "serie A",
+                attributes : [{
+                    name : "Category",
+                    selector : "h1"
+                },{
+                    name : "News #1",
+                    selector : "[bot-attribute=n1]"
+                },{
+                    name : "News #2",
+                    selector : "[bot-attribute=n2]"
+                },{
+                    name : "News #3",
+                    selector : "[bot-attribute=n3]"
+                }]
+            },}
+        };*/
 
 //LIST SUMMARY REMOVE EXAMPLE
 /*var request = {

@@ -32,33 +32,24 @@
         </li>
     </ul>
 
-    <ul id="ts" bot-resource="sports" bot-type="sport news">
-        <li>
-            <h1>Football</h1>
-            <div bot-attribute="n1">Juventus</div>
-            <div bot-attribute="n2">Milan</div>
-            <div bot-attribute="n3">Inter</div>
-        </li>
-        <li>
-            <h1>Major League Baseball</h1>
-            <div bot-attribute="n1">New York Yankees</div>
-            <div bot-attribute="n2">Chicago White Sox</div>
-            <div bot-attribute="n3">Baltimore Orioles</div>
-        </li>
-        <li>
-            <h1>UFC</h1>
-            <div bot-attribute="n1">Conor McGregor</div>
-            <div bot-attribute="n2">Alistair Overeem</div>
-            <div bot-attribute="n3">Marvin Vettori</div>
-        </li>
-    </ul>
-
-
-    <table>
-    </table>
-
-    <form></form>
-
+    <div id="sa" bot-component="list" bot-resource="news" bot-type="Serie A" bot-item="article | div [o-herobox-card]" >
+	       <div>
+	          <article>
+                  <h1>Squadre</h1>
+                  <div bot-attribute="n1">Juventus</div>
+                  <div bot-attribute="n2">Inter</div>
+                  <div bot-attribute="n3">Udinese</div>
+              </article>
+           </div>
+           <div>
+               <div class="o-herobox-card">
+                   <h1>Mercato</h1>
+                   <div bot-attribute="n1">Milinkovic alla Juve</div>
+                   <div bot-attribute="n2">Quagliarella, ritorno al Napoli?</div>
+	               <div bot-attribute="n3">Bale-Real, addio?</div>
+               </div>
+           <div>
+    </div>
 
 
 
