@@ -113,13 +113,14 @@ var List = {
 
                 result.push(data);
             }
+
     }
 
-        if (operation != "noop" && operation != "reverse")
+        if (operation != "noop")
         {
             result.sort(function (a, b)
             {
-                return a[sortBy] < b[sortBy] ? -1 : a[sortBy] > b[sortBy] ? 1 : 0;
+                return a[sortBy] < b[sortBy] ? -1 : 1;
             });
         } //fails if the numbers have commas instead of dots
 
@@ -138,11 +139,16 @@ var List = {
         var result = [];
 
         // we extract the sort-by-attribute
+        /*
+        Problema, ora la logica funziona in modo che attribute sia il name, e non il selector,
+        non so cosa mi viene passato per andarlo a prendere tuttavia.
+        */
         for(var j = 0; j < query.parameters.length; j++)
         {
             if (query.parameters[j].name == "attribute")
             {
-                var filterBy = query.parameters[j].value;
+                var filterByAttribute = query.parameters[j].value;
+                var filterBy = null;
             }
             else if (query.parameters[j].name == "attr-value")
             {
@@ -172,6 +178,10 @@ var List = {
 
                     try {
                         data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                        if(attr.selector == filterByAttribute)
+                        {
+                            filterBy = attr.name;
+                        }
                     } catch (err) {
                         data[attr.name] = undefined;
                     }
@@ -222,6 +232,10 @@ var List = {
     },
 
     'list_about': async (page, request) => {
+        /*
+        Attualmente ritorna un set, altrimenti avrebbe valori duplicati perchè cerca
+        da due bot-item diversi, da discutere se va bene.
+        */
         const query = request.query;
 
         var result = [];
@@ -246,7 +260,7 @@ var List = {
             }
         }
 
-        return result;
+        return [new Set(result)];
     },
 
     'list_summary': async (page, request) => {
@@ -258,7 +272,13 @@ var List = {
         {
             if (query.parameters[j].name == "attribute")
             {
-                var summarizeBy = query.parameters[j].value;
+                /*
+                Needs this thing, because it's the same as list_filter,
+                we have to decide what is going to be passed from the object,
+                wheter it's the name of the attribute, or the selector.
+                */
+                var summarizeByAttribute = query.parameters[j].value;
+                var summarizeBy = [];
             }
             else if (query.parameters[j].name == "summary_op")
             {
@@ -286,6 +306,13 @@ var List = {
 
                     try {
                         data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                        for(var q = 0; q < summarizeByAttribute.length; q++)
+                        {
+                            if(attr.selector == summarizeByAttribute[q])
+                            {
+                                summarizeBy.push(attr.name);
+                            }
+                        }
                     } catch (err) {
                         data[attr.name] = undefined;
                     }

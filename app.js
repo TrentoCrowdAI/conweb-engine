@@ -85,17 +85,17 @@ if (process.argv.length < 3) {
                     selector: { container: "div#sa", item: ["article", "div.o-herobox-card"]},
                     type: "serie A",
                     attributes : [{
-                        name : "Category",
+                        name : "Name",
                         selector : "h1"
                     },{
-                        name : "News #1",
-                        selector : "[bot-attribute=n1]"
+                        name : "Allenatore",
+                        selector : "[bot-attribute=allenatore]"
                     },{
-                        name : "News #2",
-                        selector : "[bot-attribute=n2]"
+                        name : "Capitano",
+                        selector : "[bot-attribute=capitano]"
                     },{
-                        name : "News #3",
-                        selector : "[bot-attribute=n3]"
+                        name : "Valutazione squadra",
+                        selector : "[bot-attribute=valutazione]"
                     }]
                 },}
             };*/
@@ -139,17 +139,17 @@ if (process.argv.length < 3) {
                 selector: { container: "div#sa", item: ["article", "div.o-herobox-card"]},
                 type: "serie A",
                 attributes : [{
-                    name : "Category",
+                    name : "Name",
                     selector : "h1"
                 },{
-                    name : "News #1",
-                    selector : "[bot-attribute=n1]"
+                    name : "Allenatore",
+                    selector : "[bot-attribute=allenatore]"
                 },{
-                    name : "News #2",
-                    selector : "[bot-attribute=n2]"
+                    name : "Capitano",
+                    selector : "[bot-attribute=capitano]"
                 },{
-                    name : "News #3",
-                    selector : "[bot-attribute=n3]"
+                    name : "Valutazione squadra",
+                    selector : "[bot-attribute=valutazione]"
                 }]
             },}
         };*/
@@ -190,37 +190,37 @@ if (process.argv.length < 3) {
         },}
     };*/
 
-    /*var request = {
-        url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
-        component: "list",
-        query: {
-            intent : "list_sort",
-            parameters : [{
-                name : "attribute",
-                value : "n2"
-            },{
-                name : "sort_type",
-                value : "descending"
-            }],
-            resource : {
-                name : "sports",
-                selector: { container: "div#sa", item: ["article", "div.o-herobox-card"]},
-                type: "serie A",
-                attributes : [{
-                    name : "Category",
-                    selector : "h1"
+        /*var request = {
+            url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
+            component: "list",
+            query: {
+                intent : "list_sort",
+                parameters : [{
+                    name : "attribute",
+                    value : "valutazione"
                 },{
-                    name : "News #1",
-                    selector : "[bot-attribute=n1]"
-                },{
-                    name : "News #2",
-                    selector : "[bot-attribute=n2]"
-                },{
-                    name : "News #3",
-                    selector : "[bot-attribute=n3]"
-                }]
-            },}
-        };*/
+                    name : "sort_type",
+                    value : "ascending"
+                }],
+                resource : {
+                    name : "sports",
+                    selector: { container: "div#sa", item: ["article", "div.o-herobox-card"]},
+                    type: "serie A",
+                    attributes : [{
+                        name : "Name",
+                        selector : "h1"
+                    },{
+                        name : "Allenatore",
+                        selector : "[bot-attribute=allenatore]"
+                    },{
+                        name : "Capitano",
+                        selector : "[bot-attribute=capitano]"
+                    },{
+                        name : "Valutazione squadra",
+                        selector : "[bot-attribute=valutazione]"
+                    }]
+                },}
+            };*/
 
 //LIST FILTER EXAMPLE
 /*var request = {
@@ -262,40 +262,40 @@ if (process.argv.length < 3) {
     }
 };*/
 
-/*var request = {
-    url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
-    component: "list",
-    query: {
-        intent : "list_filter",
-        parameters: [{
-            name: "attr-value",
-            value: "Udinese"
-        },{
-            name: "filter_op",
-            value: "equals"
-        }, {
-            name: "attribute",
-            value: "n3"
-        }],
-        resource : {
-            name : "sports",
-            selector: { container: "div#sa", item: ["article", "div.o-herobox-card"]},
-            type: "serie A",
-            attributes : [{
-                name : "Category",
-                selector : "h1"
+    /*var request = {
+        url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
+        component: "list",
+        query: {
+            intent : "list_filter",
+            parameters: [{
+                name: "attr-value",
+                value: "5"
             },{
-                name : "News #1",
-                selector : "[bot-attribute=n1]"
-            },{
-                name : "News #2",
-                selector : "[bot-attribute=n2]"
-            },{
-                name : "News #3",
-                selector : "[bot-attribute=n3]"
-            }]
-        },}
-    };*/
+                name: "filter_op",
+                value: "different"
+            }, {
+                name: "attribute",
+                value: "[bot-attribute=valutazione]"
+            }],
+            resource : {
+                name : "sports",
+                selector: { container: "div#sa", item: ["article", "div.o-herobox-card"]},
+                type: "serie A",
+                attributes : [{
+                    name : "Name",
+                    selector : "h1"
+                },{
+                    name : "Allenatore",
+                    selector : "[bot-attribute=allenatore]"
+                },{
+                    name : "Capitano",
+                    selector : "[bot-attribute=capitano]"
+                },{
+                    name : "Valutazione squadra",
+                    selector : "[bot-attribute=valutazione]"
+                }]
+            },}
+        };*/
 
 //LIST ABOUT EXAMPLE
 /*var request = {
@@ -326,30 +326,30 @@ if (process.argv.length < 3) {
         },}
     };*/
 
-    /*var request = {
-        url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
-        component: "list",
-        query: {
-            intent : "list_about",
-            resource : {
-                name : "sports",
-                selector: { container: "div#sa", item: ["article", "div.o-herobox-card"]},
-                type: "serie A",
-                attributes : [{
-                    name : "Category",
-                    selector : "h1"
-                },{
-                    name : "News #1",
-                    selector : "[bot-attribute=n1]"
-                },{
-                    name : "News #2",
-                    selector : "[bot-attribute=n2]"
-                },{
-                    name : "News #3",
-                    selector : "[bot-attribute=n3]"
-                }]
-            },}
-        };*/
+        /*var request = {
+            url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
+            component: "list",
+            query: {
+                intent : "list_about",
+                resource : {
+                    name : "sports",
+                    selector: { container: "div#sa", item: ["article", "div.o-herobox-card"]},
+                    type: "serie A",
+                    attributes : [{
+                        name : "Name",
+                        selector : "h1"
+                    },{
+                        name : "Allenatore",
+                        selector : "[bot-attribute=allenatore]"
+                    },{
+                        name : "Capitano",
+                        selector : "[bot-attribute=capitano]"
+                    },{
+                        name : "Valutazione squadra",
+                        selector : "[bot-attribute=valutazione]"
+                    }]
+                },}
+            };*/
 
 //LIST SUMMARY ONLY EXAMPLE
 /*var request = {
@@ -387,37 +387,37 @@ if (process.argv.length < 3) {
         },}
     };*/
 
-    /*var request = {
-        url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
-        component: "list",
-        query: {
-            intent : "list_summary",
-            parameters: [{
-                name: "summary_op",
-                value: "only"
-            }, {
-                name: "attribute",
-                value: ["n1", "n3"]
-            }],
-            resource : {
-                name : "sports",
-                selector: { container: "div#sa", item: ["article", "div.o-herobox-card"]},
-                type: "serie A",
-                attributes : [{
-                    name : "Category",
-                    selector : "h1"
-                },{
-                    name : "News #1",
-                    selector : "[bot-attribute=n1]"
-                },{
-                    name : "News #2",
-                    selector : "[bot-attribute=n2]"
-                },{
-                    name : "News #3",
-                    selector : "[bot-attribute=n3]"
-                }]
-            },}
-        };*/
+        /*var request = {
+            url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
+            component: "list",
+            query: {
+                intent : "list_summary",
+                parameters: [{
+                    name: "summary_op",
+                    value: "only"
+                }, {
+                    name: "attribute",
+                    value: ["[bot-attribute=allenatore]", "[bot-attribute=capitano]"]
+                }],
+                resource : {
+                    name : "sports",
+                    selector: { container: "div#sa", item: ["article", "div.o-herobox-card"]},
+                    type: "serie A",
+                    attributes : [{
+                        name : "Name",
+                        selector : "h1"
+                    },{
+                        name : "Allenatore",
+                        selector : "[bot-attribute=allenatore]"
+                    },{
+                        name : "Capitano",
+                        selector : "[bot-attribute=capitano]"
+                    },{
+                        name : "Valutazione squadra",
+                        selector : "[bot-attribute=valutazione]"
+                    }]
+                },}
+            };*/
 
 //LIST SUMMARY REMOVE EXAMPLE
 /*var request = {
@@ -454,6 +454,38 @@ if (process.argv.length < 3) {
             }]
         },}
     };*/
+
+    /*var request = {
+        url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
+        component: "list",
+        query: {
+            intent : "list_summary",
+            parameters: [{
+                name: "summary_op",
+                value: "remove"
+            }, {
+                name: "attribute",
+                value: ["[bot-attribute=valutazione]", "[bot-attribute=capitano]"]
+            }],
+            resource : {
+                name : "sports",
+                selector: { container: "div#sa", item: ["article", "div.o-herobox-card"]},
+                type: "serie A",
+                attributes : [{
+                    name : "Name",
+                    selector : "h1"
+                },{
+                    name : "Allenatore",
+                    selector : "[bot-attribute=allenatore]"
+                },{
+                    name : "Capitano",
+                    selector : "[bot-attribute=capitano]"
+                },{
+                    name : "Valutazione squadra",
+                    selector : "[bot-attribute=valutazione]"
+                }]
+            },}
+        };*/
 
 
 try {
