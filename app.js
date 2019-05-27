@@ -262,6 +262,41 @@ if (process.argv.length < 3) {
     }
 };*/
 
+/*var request = {
+    url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
+    component: "list",
+    query: {
+        intent : "list_filter",
+        parameters: [{
+            name: "attr-value",
+            value: "Massimiliano Allegri"
+        },{
+            name: "filter_op",
+            value: "equals"
+        }, {
+            name: "attribute",
+            value: "Allenatore"
+        }],
+        resource : {
+            name : "sports",
+            selector: { container: "div#sa", item: ["article", "div.o-herobox-card"]},
+            type: "serie A",
+            attributes : [{
+                name : "Name",
+                selector : "h1"
+            },{
+                name : "Allenatore",
+                selector : "[bot-attribute=allenatore]"
+            },{
+                name : "Capitano",
+                selector : "[bot-attribute=capitano]"
+            },{
+                name : "Valutazione squadra",
+                selector : "[bot-attribute=valutazione]"
+            }]
+        },}
+    };//*/
+
     /*var request = {
         url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
         component: "list",
@@ -269,13 +304,13 @@ if (process.argv.length < 3) {
             intent : "list_filter",
             parameters: [{
                 name: "attr-value",
-                value: "5"
+                value: "4.5"
             },{
                 name: "filter_op",
-                value: "different"
+                value: "less"
             }, {
                 name: "attribute",
-                value: "[bot-attribute=valutazione]"
+                value: "Valutazione squadra"
             }],
             resource : {
                 name : "sports",
@@ -295,7 +330,7 @@ if (process.argv.length < 3) {
                     selector : "[bot-attribute=valutazione]"
                 }]
             },}
-        };*/
+        };//*/
 
 //LIST ABOUT EXAMPLE
 /*var request = {
@@ -397,7 +432,7 @@ if (process.argv.length < 3) {
                     value: "only"
                 }, {
                     name: "attribute",
-                    value: ["[bot-attribute=allenatore]", "[bot-attribute=capitano]"]
+                    value: ["Allenatore", "Capitano"]
                 }],
                 resource : {
                     name : "sports",
@@ -417,7 +452,7 @@ if (process.argv.length < 3) {
                         selector : "[bot-attribute=valutazione]"
                     }]
                 },}
-            };*/
+            };//*/
 
 //LIST SUMMARY REMOVE EXAMPLE
 /*var request = {
@@ -465,7 +500,7 @@ if (process.argv.length < 3) {
                 value: "remove"
             }, {
                 name: "attribute",
-                value: ["[bot-attribute=valutazione]", "[bot-attribute=capitano]"]
+                value: ["Valutazione squadra", "Capitano"]
             }],
             resource : {
                 name : "sports",
@@ -485,7 +520,7 @@ if (process.argv.length < 3) {
                     selector : "[bot-attribute=valutazione]"
                 }]
             },}
-        };*/
+        };//*/
 
 
 try {
