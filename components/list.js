@@ -82,7 +82,7 @@ var List = {
             {
                 var sortBy = query.parameters[j].value;
             }
-            else if (query.parameters[j].name == "sort_type")
+            else if (query.parameters[j].name.includes("sort_op"))
             {
                 var operation = query.parameters[j].value;
             }
@@ -148,7 +148,7 @@ var List = {
             {
                 var filterValue = query.parameters[j].value;
             }
-            else if (query.parameters[j].name == "filter_op")
+            else if (query.parameters[j].name.includes("filter_op"))
             {
                 var operation = query.parameters[j].value;
             }
@@ -264,7 +264,7 @@ var List = {
             {
                 var summarizeBy = query.parameters[j].value;
             }
-            else if (query.parameters[j].name == "summary_op")
+            else if (query.parameters[j].name.includes("summary_op"))
             {
                 var operation = query.parameters[j].value;
             }
