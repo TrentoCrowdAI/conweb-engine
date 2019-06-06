@@ -82,7 +82,7 @@ var List = {
         {
             if (query.parameters[j].name == "attribute")
             {
-                var sortBy = query.parameters[j].value;
+                var sortBy = query.parameters[j].value[0];
             }
             else if (query.parameters[j].name.includes("sort_op"))
             {
@@ -145,7 +145,7 @@ var List = {
         {
             if (query.parameters[j].name == "attribute")
             {
-                var filterBy = query.parameters[j].value;
+                var filterBy = query.parameters[j].value[0];
             }
             else if (query.parameters[j].name == "attr-value")
             {
@@ -302,13 +302,13 @@ var List = {
 
                 switch (operation) {
                     case "only":
-                    var temp = []
+                    var temp = {}
                     summarizeBy.forEach(function(summarizeAttr) {
                         Object.keys(data).forEach(function(key) {
                             // key: the name of the object property
                             if(key == summarizeAttr)
                             {
-                                temp[key] = data[key];
+                                temp.key = data[key];
                             }
                         });
                     });
