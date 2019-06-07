@@ -226,10 +226,6 @@ var List = {
     },
 
     'list_about': async (page, request) => {
-        /*
-        Attualmente ritorna un set, altrimenti avrebbe valori duplicati perchè cerca
-        da due bot-item diversi, da discutere se va bene.
-        */
         const query = request.query;
 
         var result = [];
@@ -245,7 +241,10 @@ var List = {
             try {
                 for (var j = 0; j < query.resource.attributes.length; j++) {
                     var attr = query.resource.attributes[j];
-                    result.push(attr.name);
+                    if (!result.includes(attr.name))
+                    {
+                        result.push(attr.name);
+                    }
                 }
             }
             catch (err)
@@ -254,7 +253,7 @@ var List = {
             }
         }
 
-        return [new Set(result)];
+        return result;
     },
 
     'list_summary': async (page, request) => {
