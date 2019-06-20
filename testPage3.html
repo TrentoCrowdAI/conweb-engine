@@ -1,0 +1,36 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <title> Example List </title>
+
+</head>
+
+<body>
+
+    <h2>conweb-engine HTML Forms</h2>
+
+    <form id="datiutente" name="datiUtente" bot-resource="datiUtente" bot-type="datiUtente" onsubmit="myFunction()" method="GET">
+        First name:<br>
+        <input type="text" bot-attribute="firstname" id="firstName">
+        <br>
+        Last name:<br>
+        <input type="text" bot-attribute="lastname" id="lastName">
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+    <script>
+    function myFunction() {
+        var message = "First name: " + document.getElementById("firstName").value;
+        message += "\nLast name: " + document.getElementById("lastName").value
+        alert(message);
+    }
+    </script>
+
+</body>
+
+    </html>

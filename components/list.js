@@ -82,7 +82,7 @@ var List = {
         {
             if (query.parameters[j].name == "attribute")
             {
-                var sortBy = query.parameters[j].value[0];
+                var sortBy = query.parameters[j].value;
             }
             else if (query.parameters[j].name.includes("sort_op"))
             {
@@ -145,7 +145,7 @@ var List = {
         {
             if (query.parameters[j].name == "attribute")
             {
-                var filterBy = query.parameters[j].value[0];
+                var filterBy = query.parameters[j].value;
             }
             else if (query.parameters[j].name == "attr-value")
             {

@@ -164,7 +164,7 @@ if (process.argv.length < 3) {
             name : "attribute",
             value : "stars"
         },{
-            name : "sort_type",
+            name : "sort_op",
             value : "descending"
         }],
         resource : {
@@ -188,7 +188,7 @@ if (process.argv.length < 3) {
                 selector : "[bot-attribute=length]"
             }]
         },}
-    };*/
+    };//*/
 
         /*var request = {
             url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
@@ -199,7 +199,7 @@ if (process.argv.length < 3) {
                     name : "attribute",
                     value : "valutazione"
                 },{
-                    name : "sort_type",
+                    name : "sort_op",
                     value : "ascending"
                 }],
                 resource : {
@@ -220,7 +220,7 @@ if (process.argv.length < 3) {
                         selector : "[bot-attribute=valutazione]"
                     }]
                 },}
-            };*/
+            };//*/
 
 //LIST FILTER EXAMPLE
 /*var request = {
@@ -420,7 +420,7 @@ if (process.argv.length < 3) {
                 selector : "[bot-attribute=length]"
             }]
         },}
-    };*/
+    };//*/
 
         /*var request = {
             url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
@@ -488,7 +488,7 @@ if (process.argv.length < 3) {
                 selector : "[bot-attribute=length]"
             }]
         },}
-    };*/
+    };//*/
 
     /*var request = {
         url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
