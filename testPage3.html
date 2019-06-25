@@ -13,20 +13,34 @@
 
     <h2>conweb-engine HTML Forms</h2>
 
-    <form id="datiutente" name="datiUtente" bot-resource="datiUtente" bot-type="datiUtente" onsubmit="myFunction()" method="GET">
+    <form id="du" name="datiUtente" bot-resource="datiUtente" bot-type="datiUtente" onsubmit="myFunction()" method="GET">
         First name:<br>
         <input type="text" bot-attribute="firstname" id="firstName">
         <br>
         Last name:<br>
         <input type="text" bot-attribute="lastname" id="lastName">
+        <br><br>
+        <select name="gender" bot-attribute="gender" id="gender">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+        <br><br>
+        Occupation:<br>
+        <input type="checkbox" name="occupation1" bot-attribute="occupation1" id="occupation1" value="Student">Student<br>
+        <input type="checkbox" name="occupation2" bot-attribute="occupation2" id="occupation2" value="Worker">Worker<br>
+        <br>
+        <input type="radio" name="remember" bot-attribute="remember" id="remember" value="Yes">Remember me<br>
         <br>
         <input type="submit" value="Submit">
     </form>
 
+    <!-- Aggiungere radio button, checkbox, drop downs and stuff -->
+
     <script>
     function myFunction() {
         var message = "First name: " + document.getElementById("firstName").value;
-        message += "\nLast name: " + document.getElementById("lastName").value
+        message += "\nLast name: " + document.getElementById("lastName").value;
+        message += "\nGender: " + document.getElementById("gender").value;
         alert(message);
     }
     </script>

@@ -522,6 +522,93 @@ if (process.argv.length < 3) {
             },}
         };//*/
 
+        //FILL FORM EXAMPLE
+            /*var request = {
+                url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage3.html",
+                component: "form",
+                query: {
+                    intent : "fill_form",
+                    resource : {
+                        name : "datiUtente",
+                        selector: { container: "form#du", item: ["input", "select"] },
+                        type: "datiUtente",
+                        attributes : [{
+                            name : "firstname",
+                            type : "text",
+                            id: "firstName",
+                            selector : "[bot-attribute=firstname]",
+                            value: "Matteo"
+                        },{
+                            name : "lastname",
+                            type : "text",
+                            id: "lastName",
+                            selector : "[bot-attribute=lastname]",
+                            value: "Strada"
+                        },{
+                            name : "gender",
+                            type : "select",
+                            id: "gender",
+                            selector : "[bot-attribute=gender]",
+                            value: "Male"
+                        },{
+                            name : "occupation1",
+                            type : "checkbox",
+                            id: "occupation1",
+                            selector : "[bot-attribute=occupation1]",
+                            value: "Student"
+                        },{
+                            name : "remember",
+                            type : "radio",
+                            id: "remember",
+                            selector : "[bot-attribute=remember]",
+                            value: "Yes"
+                        }]
+                    }
+                }
+            };//*/
+
+            /*Da sistemare, per i click sui vari radio button ecc basta dirgli qual cliccare,
+            senza campi value che fanno casino e basta
+            Ora come ora il discorso dei radio button vengono cliccati solamente se presenti
+            nella request, che comunque deve essere rivista perchè scritta da bestie*/
+            /*var request = {
+                url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage3.html",
+                component: "form",
+                query: {
+                    intent : "fill_form",
+                    resource : {
+                        name : "datiUtente",
+                        selector: { container: "form#du", item: ["input", "select"] },
+                        type: "datiUtente",
+                        attributes : [{
+                            name : "firstname",
+                            type : "text",
+                            id: "firstName",
+                            selector : "[bot-attribute=firstname]",
+                            value: "Angela"
+                        },{
+                            name : "lastname",
+                            type : "text",
+                            id: "lastName",
+                            selector : "[bot-attribute=lastname]",
+                            value: "Rossi"
+                        },{
+                            name : "gender",
+                            type : "select",
+                            id: "gender",
+                            selector : "[bot-attribute=gender]",
+                            value: "Female"
+                        },{
+                            name : "occupation2",
+                            type : "checkbox",
+                            id: "occupation2",
+                            selector : "[bot-attribute=occupation2]",
+                            value: "Worker"
+                        }]
+                    }
+                }
+            };//*/
+
 
 try {
     engine.processIntent(request).then(res => console.log(res));

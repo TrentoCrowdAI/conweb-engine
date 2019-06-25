@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 // This part we will probably load dynamically for all components
 const list = require("./list");
+const form = require("./form");
 
 exports.processIntent = async (request) => {
 
@@ -28,7 +29,10 @@ var executeIntent = async (page, request) => {
 
   if (request.component == "list"){
     return await list.executeIntent(page, request);
-  } 
-  
-  return null;  
+  }
+  else if (request.component == "form"){
+    return await form.executeIntent(page, request);
+  }
+
+  return null;
 };
