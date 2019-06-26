@@ -4,32 +4,61 @@ var Form = {
     */
     'fill_form': async (page, request) => {
         const query = request.query;
+
+        //Array to be returned to check items
+        var result = [];
+
         for(var i = 0; i < query.resource.attributes.length; i++)
         {
-            var selector = query.resource.attributes[i].selector;
-            var type = query.resource.attributes[i].type;
-            var id = query.resource.attributes[i].id;
-            var value = query.resource.attributes[i].value;
-            await page.focus(selector);
-            switch (type)
+            var data = {};
+
+            try {
+                var selector = query.resource.attributes[i].selector;
+                var type = query.resource.attributes[i].type;
+                var formSelector = query.resource.selector.container; //Per ora usato solo per submit
+
+                await page.focus(selector);
+
+                switch (type)
+                {
+                    case 'text':
+                        var value = query.resource.attributes[i].value;
+                        await page.keyboard.type(value);
+                        break;
+                    case 'select':
+                        var id = query.resource.attributes[i].id;
+                        var value = query.resource.attributes[i].value;
+                        await page.select(type + "#" + id, value)
+                        break;
+                    case 'radio':
+                        await page.evaluate((selector) => document.querySelector(selector).click(), selector);
+                        break;
+                    case 'checkbox':
+                        await page.evaluate((selector) => document.querySelector(selector).click(), selector);
+                        break;
+                }
+                data[selector] = 'ok';
+            } catch (err)
             {
-                case 'text':
-                    await page.keyboard.type(value);
-                    break;
-                case 'select':
-                    await page.select(type + "#" + id, value)
-                    break;
-                case 'radio':
-                    await page.evaluate((selector) => document.querySelector(selector).click(), selector);
-                    break;
-                case 'checkbox':
-                    await page.evaluate((selector) => document.querySelector(selector).click(), selector);
-                    break;
+                data[selector] = 'missing';
             }
+
+            result.push(data);
+            /*
+            Il result che viene ritornato è semplicemente un array che si segna i campi correttamente
+            compilati nel form (indicati con ok) e quelli che puppeteer si aspetta. Nota però, segna come missing solo
+            se ci sono campi extra/sbagliati nella request, ma non riesce ancora a dire se ci sono campi mancanti nella richiesta.
+            */
         }
-        // captures a screenshot
+
+        // captures a screenshot to check if form completed correctly
         await page.screenshot({ path: 'proof.png' });
-        console.log ('done');
+
+        //Submits the form
+        /*await page.$eval(formSelector, form => form.submit());
+        await page.screenshot({ path: 'proof2.png' });*/
+
+        return result;
     }
 };
 

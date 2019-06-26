@@ -523,6 +523,11 @@ if (process.argv.length < 3) {
         };//*/
 
         //FILL FORM EXAMPLE
+        /*
+        Vista così, i vari campi del resource non sembrano servire, o meglio servono per distinguere form "costruiti uguali"
+        ma con funzioni diverse o che appartengono a sezioni diverse. Non ho bene idea di come procedere tuttavia, nel senso che credo
+        sia improbabile che si verifichi la suddetta condizione, da esporre il problema e confrontarsi.
+        */
             /*var request = {
                 url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage3.html",
                 component: "form",
@@ -535,13 +540,11 @@ if (process.argv.length < 3) {
                         attributes : [{
                             name : "firstname",
                             type : "text",
-                            id: "firstName",
                             selector : "[bot-attribute=firstname]",
                             value: "Matteo"
                         },{
                             name : "lastname",
                             type : "text",
-                            id: "lastName",
                             selector : "[bot-attribute=lastname]",
                             value: "Strada"
                         },{
@@ -553,15 +556,11 @@ if (process.argv.length < 3) {
                         },{
                             name : "occupation1",
                             type : "checkbox",
-                            id: "occupation1",
-                            selector : "[bot-attribute=occupation1]",
-                            value: "Student"
+                            selector : "[bot-attribute=occupation1]"
                         },{
                             name : "remember",
                             type : "radio",
-                            id: "remember",
-                            selector : "[bot-attribute=remember]",
-                            value: "Yes"
+                            selector : "[bot-attribute=remember]"
                         }]
                     }
                 }
@@ -583,13 +582,11 @@ if (process.argv.length < 3) {
                         attributes : [{
                             name : "firstname",
                             type : "text",
-                            id: "firstName",
                             selector : "[bot-attribute=firstname]",
                             value: "Angela"
                         },{
                             name : "lastname",
                             type : "text",
-                            id: "lastName",
                             selector : "[bot-attribute=lastname]",
                             value: "Rossi"
                         },{
@@ -601,9 +598,51 @@ if (process.argv.length < 3) {
                         },{
                             name : "occupation2",
                             type : "checkbox",
-                            id: "occupation2",
-                            selector : "[bot-attribute=occupation2]",
-                            value: "Worker"
+                            selector : "[bot-attribute=occupation2]"
+                        }]
+                    }
+                }
+            };//*/
+
+            /*var request = {
+                url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage3.html",
+                component: "form",
+                query: {
+                    intent : "fill_form",
+                    resource : {
+                        name : "datiUtente",
+                        selector: { container: "form#du", item: ["input", "select"] },
+                        type: "datiUtente",
+                        attributes : [{
+                            name : "firstname",
+                            type : "text",
+                            selector : "[bot-attribute=firstname]",
+                            value: "Giancarlo"
+                        },{
+                            name : "lastname",
+                            type : "text",
+                            selector : "[bot-attribute=lastname]",
+                            value: "Stanton"
+                        },{
+                            name : "gender",
+                            type : "select",
+                            id: "gender",
+                            selector : "[bot-attribute=gender]",
+                            value: "Male"
+                        },{
+                            name : "occupation2",
+                            type : "checkbox",
+                            selector : "[bot-attribute=occupation2]"
+                        },{
+                            name: "workfield",
+                            type: "text",
+                            selector: "[bot-attribute=workfield]",
+                            value: "Baseball Player"
+                        },{
+                            name: "team",
+                            type: "text",
+                            selector: "[bot-attribute=team]",
+                            value: "New York Yankees"
                         }]
                     }
                 }
