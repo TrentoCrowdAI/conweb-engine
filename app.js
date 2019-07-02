@@ -566,10 +566,15 @@ if (process.argv.length < 3) {
                 }
             };//*/
 
-            /*Da sistemare, per i click sui vari radio button ecc basta dirgli qual cliccare,
+            /*
+            Da sistemare, per i click sui vari radio button ecc basta dirgli qual cliccare,
             senza campi value che fanno casino e basta
             Ora come ora il discorso dei radio button vengono cliccati solamente se presenti
-            nella request, che comunque deve essere rivista perchè scritta da bestie*/
+            nella request, che comunque deve essere rivista perchè scritta da bestie
+            Per ora uso solo i bot-attribure come selector, ma volendo si possono anche usare gli
+            id dei vari campi di input per selezionarli
+            */
+
             /*var request = {
                 url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage3.html",
                 component: "form",
@@ -617,6 +622,40 @@ if (process.argv.length < 3) {
                             name : "firstname",
                             type : "text",
                             selector : "[bot-attribute=firstname]",
+                            value: "Boh"
+                        },{
+                            name : "lastname",
+                            type : "text",
+                            selector : "[bot-attribute=lastname]",
+                            value: "Nunc'hoidea"
+                        },{
+                            name : "gender",
+                            type : "select",
+                            id: "gender",
+                            selector : "[bot-attribute=gender]",
+                            value: "Apache"
+                        },{
+                            name : "occupation2",
+                            type : "checkbox",
+                            selector : "[bot-attribute=occupation2]"
+                        }]
+                    }
+                }
+            };//*/
+
+            /*var request = {
+                url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage3.html",
+                component: "form",
+                query: {
+                    intent : "fill_form",
+                    resource : {
+                        name : "datiUtente",
+                        selector: { container: "form#du", item: ["input", "select"] },
+                        type: "datiUtente",
+                        attributes : [{
+                            name : "firstname",
+                            type : "text",
+                            selector : "[bot-attribute=firstname]",
                             value: "Giancarlo"
                         },{
                             name : "lastname",
@@ -638,6 +677,50 @@ if (process.argv.length < 3) {
                             type: "text",
                             selector: "[bot-attribute=workfield]",
                             value: "Baseball Player"
+                        },{
+                            name: "team",
+                            type: "text",
+                            selector: "[bot-attribute=team]",
+                            value: "New York Yankees"
+                        }]
+                    }
+                }
+            };//*/
+
+            //NOTE: this is an example from a real world case
+            /*var request = {
+                url: "https://myaccount.rid.org/Public/Search/Member.aspx",
+                component: "form",
+                query: {
+                    intent : "fill_form",
+                    resource : {
+                        name : "",
+                        selector: { container: "", item: [] },
+                        type: "", //per esempi reali non ho idea di cosa mettere nei campi fino a qui
+                        attributes : [{
+                            name : "ctl00$FormContentPlaceHolder$Panel$firstNameTextBox",
+                            type : "text",
+                            selector : "[id=FormContentPlaceHolder_Panel_firstNameTextBox]",
+                            value: "Giancarlo"
+                        },{
+                            name : "ctl00$FormContentPlaceHolder$Panel$lastNameTextBox",
+                            type : "text",
+                            selector : "[id=FormContentPlaceHolder_Panel_lastNameTextBox]",
+                            value: "Stanton"
+                        },{
+                            name : "ctl00$FormContentPlaceHolder$Panel$categoryDropDownList",
+                            type : "select",
+                            id: "FormContentPlaceHolder_Panel_categoryDropDownList",
+                            selector : "[id=FormContentPlaceHolder_Panel_categoryDropDownList]",
+                            value: "a027b6c0-07bb-4301-b9b5-1b38dcdc59b6"
+                        },{
+                            name : "ctl00$FormContentPlaceHolder$Panel$certificatesCheckBoxList$0",
+                            type : "checkbox",
+                            selector : "[id=FormContentPlaceHolder_Panel_certificatesCheckBoxList_0]"
+                        },{
+                            name : "ctl00$FormContentPlaceHolder$Panel$certificatesCheckBoxList$16",
+                            type : "checkbox",
+                            selector : "[id=FormContentPlaceHolder_Panel_certificatesCheckBoxList_16]"
                         },{
                             name: "team",
                             type: "text",
