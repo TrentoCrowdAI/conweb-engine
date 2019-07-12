@@ -8,7 +8,7 @@ var List = {
         // we get the items
         var result = [];
         let haveAttribute;
-         
+
         for (var s = 0; s < query.resource.selector.item.length; s++) {
             var item = query.resource.selector.container + " " + query.resource.selector.item[s];
 
@@ -85,7 +85,7 @@ var List = {
         // we extract the sort-by-attribute
         for (var j = 0; j < query.parameters.length; j++) {
             if (query.parameters[j].name == "attribute") {
-                var sortBy = query.parameters[j].value;
+                var sortBy = query.parameters[j].value[0];
             }
             else if (query.parameters[j].name.includes("sort_op")) {
                 var operation = query.parameters[j].value;
@@ -127,7 +127,12 @@ var List = {
 
         if (operation != "noop") {
             result.sort(function (a, b) {
-                return a[sortBy] < b[sortBy] ? -1 : 1;
+                if (parseInt(a[sortBy])!==NaN) 
+                {
+                    return parseInt(a[sortBy]) < parseInt(b[sortBy]) ? -1 : 1;
+                } else {
+                    return a[sortBy] < b[sortBy] ? -1 : 1;
+                }
             });
         } //fails if the numbers have commas instead of dots
 
@@ -147,7 +152,7 @@ var List = {
         // we extract the sort-by-attribute
         for (var j = 0; j < query.parameters.length; j++) {
             if (query.parameters[j].name == "attribute") {
-                var filterBy = query.parameters[j].value;
+                var filterBy = query.parameters[j].value[0];
             }
             else if (query.parameters[j].name == "attr-value") {
                 var filterValue = query.parameters[j].value;
@@ -186,32 +191,36 @@ var List = {
                 if (haveAttribute) {
                     switch (operation) {
                         case "less":
-                            if (data[filterBy] < filterValue) {
+                            if ((parseInt(filterValue)!==NaN && parseInt(data[filterBy]) < filterValue) || (parseInt(filterValue)===NaN && data[filterBy] < filterValue)) {
+                                console.log("data[filterBy] < filterValue")
+                                console.log(data[filterBy])
+                                console.log(filterValue)
+                                console.log(data[filterBy] < filterValue)
                                 result.push(data);
                             }
                             break;
                         case "let":
-                            if (data[filterBy] <= filterValue) {
+                            if ((parseInt(filterValue)!==NaN && parseInt(data[filterBy]) <= filterValue) || (parseInt(filterValue)===NaN && data[filterBy] <= filterValue)) {
                                 result.push(data);
                             }
                             break;
                         case "greater":
-                            if (data[filterBy] > filterValue) {
+                            if ((parseInt(filterValue)!==NaN && parseInt(data[filterBy]) > filterValue) || (parseInt(filterValue)===NaN && data[filterBy] > filterValue)) {
                                 result.push(data);
                             }
                             break;
                         case "get":
-                            if (data[filterBy] >= filterValue) {
+                            if ((parseInt(filterValue)!==NaN && parseInt(data[filterBy]) >= filterValue) || (parseInt(filterValue)===NaN && data[filterBy] >= filterValue)) {
                                 result.push(data);
                             }
                             break;
                         case "different":
-                            if (data[filterBy] != filterValue) {
+                            if ((parseInt(filterValue)!==NaN && parseInt(data[filterBy]) != filterValue) || (parseInt(filterValue)===NaN && data[filterBy] != filterValue)) {
                                 result.push(data);
                             }
                             break;
                         case "equals":
-                            if (data[filterBy] == filterValue) {
+                            if ((parseInt(filterValue)!==NaN && parseInt(data[filterBy]) == filterValue) || (parseInt(filterValue)===NaN && data[filterBy] == filterValue)) {
                                 result.push(data);
                             }
                             break;
@@ -266,6 +275,7 @@ var List = {
         }
 
         var result = [];
+        let haveAttribute;
 
         // we get the items
         for (var s = 0; s < query.resource.selector.item.length; s++) {
@@ -277,6 +287,7 @@ var List = {
             for (var i = 0; i < liEl.length; i++) {
                 var item = liEl[i];
                 var data = {};
+                haveAttribute = false;
 
                 // we try to extract each of the attributes in the reference resource
                 for (var j = 0; j < query.resource.attributes.length; j++) {
@@ -285,30 +296,33 @@ var List = {
                     try {
                         if (!data[attr.name])
                             data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                        haveAttribute = true;
                     } catch (err) {
                         data[attr.name] = undefined;
                     }
                 }
 
-                switch (operation) {
-                    case "only":
-                        var temp = {}
-                        summarizeBy.forEach(function (summarizeAttr) {
-                            Object.keys(data).forEach(function (key) {
-                                // key: the name of the object property
-                                if (key == summarizeAttr) {
-                                    temp.key = data[key];
-                                }
+                if (haveAttribute) {
+                    switch (operation) {
+                        case "only":
+                            var temp = {}
+                            summarizeBy.forEach(function (summarizeAttr) {
+                                Object.keys(data).forEach(function (key) {
+                                    // key: the name of the object property
+                                    if (key == summarizeAttr) {
+                                        temp.key = data[key];
+                                    }
+                                });
                             });
-                        });
-                        result.push(temp);
-                        break;
-                    case "remove":
-                        summarizeBy.forEach(function (summarizeAttr) {
-                            delete data[summarizeAttr];
-                        });
-                        result.push(data);
-                        break;
+                            result.push(temp);
+                            break;
+                        case "remove":
+                            summarizeBy.forEach(function (summarizeAttr) {
+                                delete data[summarizeAttr];
+                            });
+                            result.push(data);
+                            break;
+                    }
                 }
             }
         }
