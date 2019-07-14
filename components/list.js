@@ -11,6 +11,9 @@ var List = {
 
         for (var s = 0; s < query.resource.selector.item.length; s++) {
             var item = query.resource.selector.container + " " + query.resource.selector.item[s];
+            if (query.resource.selector.container.includes("ul")) {
+                item = query.resource.selector.container + " > " + query.resource.selector.item[s];
+            }
 
             var liEl = await page.$$(item);
 
@@ -50,6 +53,9 @@ var List = {
 
         for (var s = 0; s < query.resource.selector.item.length; s++) {
             var item = query.resource.selector.container + " " + query.resource.selector.item[s];
+            if (query.resource.selector.container.includes("ul")) {
+                item = query.resource.selector.container + " > " + query.resource.selector.item[s];
+            }
 
             var liEl = await page.$$(item);
 
@@ -95,6 +101,9 @@ var List = {
         // we get the items
         for (var s = 0; s < query.resource.selector.item.length; s++) {
             var item = query.resource.selector.container + " " + query.resource.selector.item[s];
+            if (query.resource.selector.container.includes("ul")) {
+                item = query.resource.selector.container + " > " + query.resource.selector.item[s];
+            }
 
             var liEl = await page.$$(item);
 
@@ -165,6 +174,9 @@ var List = {
         // we get the items
         for (var s = 0; s < query.resource.selector.item.length; s++) {
             var item = query.resource.selector.container + " " + query.resource.selector.item[s];
+            if (query.resource.selector.container.includes("ul")) {
+                item = query.resource.selector.container + " > " + query.resource.selector.item[s];
+            }
 
             var liEl = await page.$$(item);
 
@@ -240,6 +252,9 @@ var List = {
         // we get the items
         for (var s = 0; s < query.resource.selector.item.length; s++) {
             var item = query.resource.selector.container + " " + query.resource.selector.item[s];
+            if (query.resource.selector.container.includes("ul")) {
+                item = query.resource.selector.container + " > " + query.resource.selector.item[s];
+            }
 
             var liEl = await page.$$(item);
 
@@ -280,6 +295,9 @@ var List = {
         // we get the items
         for (var s = 0; s < query.resource.selector.item.length; s++) {
             var item = query.resource.selector.container + " " + query.resource.selector.item[s];
+            if (query.resource.selector.container.includes("ul")) {
+                item = query.resource.selector.container + " > " + query.resource.selector.item[s];
+            }
 
             var liEl = await page.$$(item);
 
