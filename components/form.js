@@ -3,6 +3,35 @@ function timeout(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 };
 
+function validateEmail(email) {
+    var re = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+    return re.test(String(email).toLowerCase());
+}
+
+function validateDate(date, pattern) {
+    if (pattern == null)
+    {
+        var re = /(?:19|20)(?:(?:[13579][26]|[02468][048])-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))|(?:[0-9]{2}-(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:29|30))|(?:(?:0[13578]|1[02])-31)))/;
+    }
+    else
+    {
+        var re = new RegExp(pattern);
+    }
+    return re.test(String(date));
+}
+
+function validatePhoneNum(num, pattern) {
+    if (pattern == null)
+    {
+        var re = /(?:19|20)(?:(?:[13579][26]|[02468][048])-(?:(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-9])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:30))|(?:(?:0[13578]|1[02])-31))|(?:[0-9]{2}-(?:0[1-9]|1[0-2])-(?:0[1-9]|1[0-9]|2[0-8])|(?:(?!02)(?:0[1-9]|1[0-2])-(?:29|30))|(?:(?:0[13578]|1[02])-31)))/;
+    }
+    else
+    {
+        var re = new RegExp(pattern);
+    }
+    return re.test(String(num));
+}
+
 async function getSelectOptions(page, selector) {
     //Function used to get all the options of a select field to double check the input
     const options = await page.evaluate(optionSelector => {
@@ -18,6 +47,23 @@ async function getSelectOptions(page, selector) {
 
     return options;
 }
+
+async function getPattern(page, selector) {
+    //Function used to get the appropriate patterns of the fields
+    let item = await page.$(selector);
+    let patternHandle = await item.getProperty("pattern");
+    let pattern = await patternHandle.jsonValue();
+    return pattern;
+}
+
+/*
+Ad oggi avevo provato ad implementare un metodo che andasse a prendere i pattern specificati
+all'interno dei vari input fields, ma non sembra funzionare proprio bene, ho
+idea che dipenda dal fatto che i vari pattern non corrispondono perfettamente
+alla struttura delle regex, quindi bisognerà lavorare su quello, O, controllare
+a mano passando il pattern, un po' laborioso, ma essendo fatto solo sui numeri
+potrebbe essere ancora fattibile.
+*/
 
 var Form = {
     /*
@@ -46,12 +92,53 @@ var Form = {
                 */
 
                 await page.focus(selector);
+                var pattern = await getPattern(page, selector);
 
                 switch (type)
                 {
                     case 'text':
+                    case 'password': //Bisogna trovare un modo di validare secondo le regole del form
                         var value = query.resource.attributes[i].value;
                         await page.keyboard.type(value);
+                        break;
+                    case 'tel': //Validato tramite pattern previsto nel campo, o regex generica
+                        var value = query.resource.attributes[i].value;
+
+                        if (validatePhoneNum(value, pattern))
+                        {
+                            await page.keyboard.type(value);
+                        }
+                        else
+                        {
+                            throw "Phone number not valid!";
+                        }
+                        break;
+                    case 'email': //Validato con regex
+                        var value = query.resource.attributes[i].value;
+                        if (validateEmail(value))
+                        {
+                            await page.keyboard.type(value);
+                        }
+                        else
+                        {
+                            throw "Email not valid!";
+                        }
+                        break;
+                    case 'date': //Needs date in JP format, this way using the date constructor I can build and submit the date corrected for the correct locale
+                        var value = query.resource.attributes[i].value;
+                        if (await validateDate(value, pattern))
+                        {
+                            var date = new Date(value.substring(0, 4), value.substring(5, 7), value.substring(8, 10));
+                            //var date = new Date(value);
+                            console.log(date);
+                            var newDate = date.toLocaleString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit' });
+                            console.log(newDate);
+                            await page.keyboard.type(newDate);
+                        }
+                        else
+                        {
+                            throw "Date not valid!";
+                        }
                         break;
                     case 'select':
                         /*
@@ -109,8 +196,7 @@ var Form = {
         await page.screenshot({ path: 'proof.png', fullPage: true });
 
         //Submits the form
-        /*await page.$eval(formSelector, form => form.submit());
-        await page.screenshot({ path: 'proof2.png' });*/
+        await page.$eval(formSelector, form => form.submit());//*/
 
         return result;
     }

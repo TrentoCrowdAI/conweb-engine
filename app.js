@@ -528,7 +528,7 @@ if (process.argv.length < 3) {
         ma con funzioni diverse o che appartengono a sezioni diverse. Non ho bene idea di come procedere tuttavia, nel senso che credo
         sia improbabile che si verifichi la suddetta condizione, da esporre il problema e confrontarsi.
         */
-            /*var request = {
+            var request = {
                 url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage3.html",
                 component: "form",
                 query: {
@@ -541,12 +541,35 @@ if (process.argv.length < 3) {
                             name : "firstname",
                             type : "text",
                             selector : "[bot-attribute=firstname]",
-                            value: "Matteo"
+                            value: "Aronne"
                         },{
                             name : "lastname",
                             type : "text",
                             selector : "[bot-attribute=lastname]",
-                            value: "Strada"
+                            value: "MePare"
+                        },{
+                            name : "password",
+                            type : "text",
+                            id: "psw",
+                            selector : "[bot-attribute=psw]",
+                            value: "RandomPassword"
+                        },{
+                            name : "telephone",
+                            type : "tel",
+                            selector : "[bot-attribute=phone]",
+                            value: "123-456-7890"
+                        },{
+                            name : "email",
+                            type : "email",
+                            id: "email",
+                            selector : "[bot-attribute=ema]",
+                            value: "aronne.mepare@gmail.com"
+                        },{
+                            name : "birthday",
+                            type : "date",
+                            id: "bday",
+                            selector : "[bot-attribute=bday]",
+                            value: "1990/15/12"
                         },{
                             name : "gender",
                             type : "select",
@@ -574,118 +597,6 @@ if (process.argv.length < 3) {
             Per ora uso solo i bot-attribure come selector, ma volendo si possono anche usare gli
             id dei vari campi di input per selezionarli
             */
-
-            /*var request = {
-                url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage3.html",
-                component: "form",
-                query: {
-                    intent : "fill_form",
-                    resource : {
-                        name : "datiUtente",
-                        selector: { container: "form#du", item: ["input", "select"] },
-                        type: "datiUtente",
-                        attributes : [{
-                            name : "firstname",
-                            type : "text",
-                            selector : "[bot-attribute=firstname]",
-                            value: "Angela"
-                        },{
-                            name : "lastname",
-                            type : "text",
-                            selector : "[bot-attribute=lastname]",
-                            value: "Rossi"
-                        },{
-                            name : "gender",
-                            type : "select",
-                            id: "gender",
-                            selector : "[bot-attribute=gender]",
-                            value: "Female"
-                        },{
-                            name : "occupation2",
-                            type : "checkbox",
-                            selector : "[bot-attribute=occupation2]"
-                        }]
-                    }
-                }
-            };//*/
-
-            /*var request = {
-                url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage3.html",
-                component: "form",
-                query: {
-                    intent : "fill_form",
-                    resource : {
-                        name : "datiUtente",
-                        selector: { container: "form#du", item: ["input", "select"] },
-                        type: "datiUtente",
-                        attributes : [{
-                            name : "firstname",
-                            type : "text",
-                            selector : "[bot-attribute=firstname]",
-                            value: "Boh"
-                        },{
-                            name : "lastname",
-                            type : "text",
-                            selector : "[bot-attribute=lastname]",
-                            value: "Nunc'hoidea"
-                        },{
-                            name : "gender",
-                            type : "select",
-                            id: "gender",
-                            selector : "[bot-attribute=gender]",
-                            value: "Apache"
-                        },{
-                            name : "occupation2",
-                            type : "checkbox",
-                            selector : "[bot-attribute=occupation2]"
-                        }]
-                    }
-                }
-            };//*/
-
-            /*var request = {
-                url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage3.html",
-                component: "form",
-                query: {
-                    intent : "fill_form",
-                    resource : {
-                        name : "datiUtente",
-                        selector: { container: "form#du", item: ["input", "select"] },
-                        type: "datiUtente",
-                        attributes : [{
-                            name : "firstname",
-                            type : "text",
-                            selector : "[bot-attribute=firstname]",
-                            value: "Giancarlo"
-                        },{
-                            name : "lastname",
-                            type : "text",
-                            selector : "[bot-attribute=lastname]",
-                            value: "Stanton"
-                        },{
-                            name : "gender",
-                            type : "select",
-                            id: "gender",
-                            selector : "[bot-attribute=gender]",
-                            value: "Male"
-                        },{
-                            name : "occupation2",
-                            type : "checkbox",
-                            selector : "[bot-attribute=occupation2]"
-                        },{
-                            name: "workfield",
-                            type: "text",
-                            selector: "[bot-attribute=workfield]",
-                            value: "Baseball Player"
-                        },{
-                            name: "team",
-                            type: "text",
-                            selector: "[bot-attribute=team]",
-                            value: "New York Yankees"
-                        }]
-                    }
-                }
-            };//*/
 
             //NOTE: this is an example from a real world case
             /*var request = {
