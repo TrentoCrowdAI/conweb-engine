@@ -7,10 +7,13 @@ var List = {
 
         // we get the items
         var result = [];
+        let haveAttribute;
 
-        for(var s = 0; s < query.resource.selector.item.length; s++)
-        {
+        for (var s = 0; s < query.resource.selector.item.length; s++) {
             var item = query.resource.selector.container + " " + query.resource.selector.item[s];
+            if (query.resource.selector.container.includes("ul")) {
+                item = query.resource.selector.container + " > " + query.resource.selector.item[s];
+            }
 
             var liEl = await page.$$(item);
 
@@ -18,19 +21,24 @@ var List = {
             for (var i = 0; i < liEl.length; i++) {
                 var item = liEl[i];
                 var data = {};
+                haveAttribute = false;
 
                 // we try to extract each of the attributes in the reference resource
                 for (var j = 0; j < query.resource.attributes.length; j++) {
                     var attr = query.resource.attributes[j];
 
                     try {
-                        if(!data[attr.name])
+                        if (!data[attr.name]) {
                             data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                            haveAttribute = true;
+                        }
                     } catch (err) {
                         data[attr.name] = undefined;
                     }
                 }
-                result.push(data);
+                if (haveAttribute) {
+                    result.push(data);
+                }
             }
         }
 
@@ -43,9 +51,11 @@ var List = {
         // we get the items
         var result = 0;
 
-        for(var s = 0; s < query.resource.selector.item.length; s++)
-        {
+        for (var s = 0; s < query.resource.selector.item.length; s++) {
             var item = query.resource.selector.container + " " + query.resource.selector.item[s];
+            if (query.resource.selector.container.includes("ul")) {
+                item = query.resource.selector.container + " > " + query.resource.selector.item[s];
+            }
 
             var liEl = await page.$$(item);
 
@@ -59,7 +69,7 @@ var List = {
                     var attr = query.resource.attributes[j];
 
                     try {
-                        if(!data[attr.name])
+                        if (!data[attr.name])
                             data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
                     } catch (err) {
                         data[attr.name] = undefined;
@@ -76,24 +86,24 @@ var List = {
         const query = request.query;
 
         var result = [];
+        let haveAttribute;
 
         // we extract the sort-by-attribute
-        for(var j = 0; j < query.parameters.length; j++)
-        {
-            if (query.parameters[j].name == "attribute")
-            {
-                var sortBy = query.parameters[j].value;
+        for (var j = 0; j < query.parameters.length; j++) {
+            if (query.parameters[j].name == "attribute") {
+                var sortBy = query.parameters[j].value[0];
             }
-            else if (query.parameters[j].name.includes("sort_op"))
-            {
+            else if (query.parameters[j].name.includes("sort_op")) {
                 var operation = query.parameters[j].value;
             }
         }
 
         // we get the items
-        for(var s = 0; s < query.resource.selector.item.length; s++)
-        {
+        for (var s = 0; s < query.resource.selector.item.length; s++) {
             var item = query.resource.selector.container + " " + query.resource.selector.item[s];
+            if (query.resource.selector.container.includes("ul")) {
+                item = query.resource.selector.container + " > " + query.resource.selector.item[s];
+            }
 
             var liEl = await page.$$(item);
 
@@ -101,34 +111,41 @@ var List = {
             for (var i = 0; i < liEl.length; i++) {
                 var item = liEl[i];
                 var data = {};
+                haveAttribute = false;
 
                 // we try to extract each of the attributes in the reference resource
                 for (var j = 0; j < query.resource.attributes.length; j++) {
                     var attr = query.resource.attributes[j];
 
                     try {
-                        if(!data[attr.name])
+                        if (!data[attr.name]) {
                             data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                            haveAttribute = true;
+                        }
                     } catch (err) {
                         data[attr.name] = undefined;
                     }
                 }
 
-                result.push(data);
+                if (haveAttribute) {
+                    result.push(data);
+                }
             }
 
-    }
+        }
 
-        if (operation != "noop")
-        {
-            result.sort(function (a, b)
-            {
-                return a[sortBy] < b[sortBy] ? -1 : 1;
+        if (operation != "noop") {
+            result.sort(function (a, b) {
+                if (parseInt(a[sortBy])!==NaN) 
+                {
+                    return parseInt(a[sortBy]) < parseInt(b[sortBy]) ? -1 : 1;
+                } else {
+                    return a[sortBy] < b[sortBy] ? -1 : 1;
+                }
             });
         } //fails if the numbers have commas instead of dots
 
-        if (operation == "descending" || operation == "reverse")
-        {
+        if (operation == "descending" || operation == "reverse") {
             result.reverse();
         }
 
@@ -139,28 +156,27 @@ var List = {
         const query = request.query;
 
         var result = [];
+        let haveAttribute;
 
         // we extract the sort-by-attribute
-        for(var j = 0; j < query.parameters.length; j++)
-        {
-            if (query.parameters[j].name == "attribute")
-            {
-                var filterBy = query.parameters[j].value;
+        for (var j = 0; j < query.parameters.length; j++) {
+            if (query.parameters[j].name == "attribute") {
+                var filterBy = query.parameters[j].value[0];
             }
-            else if (query.parameters[j].name == "attr-value")
-            {
+            else if (query.parameters[j].name == "attr-value") {
                 var filterValue = query.parameters[j].value;
             }
-            else if (query.parameters[j].name.includes("filter_op"))
-            {
+            else if (query.parameters[j].name.includes("filter_op")) {
                 var operation = query.parameters[j].value;
             }
         }
 
         // we get the items
-        for(var s = 0; s < query.resource.selector.item.length; s++)
-        {
+        for (var s = 0; s < query.resource.selector.item.length; s++) {
             var item = query.resource.selector.container + " " + query.resource.selector.item[s];
+            if (query.resource.selector.container.includes("ul")) {
+                item = query.resource.selector.container + " > " + query.resource.selector.item[s];
+            }
 
             var liEl = await page.$$(item);
 
@@ -168,56 +184,59 @@ var List = {
             for (var i = 0; i < liEl.length; i++) {
                 var item = liEl[i];
                 var data = {};
+                haveAttribute = false;
 
                 // we try to extract each of the attributes in the reference resource
                 for (var j = 0; j < query.resource.attributes.length; j++) {
                     var attr = query.resource.attributes[j];
 
                     try {
-                        if(!data[attr.name])
+                        if (!data[attr.name]) {
                             data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                            haveAttribute = true;
+                        }
                     } catch (err) {
                         data[attr.name] = undefined;
                     }
                 }
 
-                switch (operation) {
-                    case "less":
-                    if (data[filterBy] < filterValue)
-                    {
-                        result.push(data);
+                if (haveAttribute) {
+                    switch (operation) {
+                        case "less":
+                            if ((parseInt(filterValue)!==NaN && parseInt(data[filterBy]) < filterValue) || (parseInt(filterValue)===NaN && data[filterBy] < filterValue)) {
+                                console.log("data[filterBy] < filterValue")
+                                console.log(data[filterBy])
+                                console.log(filterValue)
+                                console.log(data[filterBy] < filterValue)
+                                result.push(data);
+                            }
+                            break;
+                        case "let":
+                            if ((parseInt(filterValue)!==NaN && parseInt(data[filterBy]) <= filterValue) || (parseInt(filterValue)===NaN && data[filterBy] <= filterValue)) {
+                                result.push(data);
+                            }
+                            break;
+                        case "greater":
+                            if ((parseInt(filterValue)!==NaN && parseInt(data[filterBy]) > filterValue) || (parseInt(filterValue)===NaN && data[filterBy] > filterValue)) {
+                                result.push(data);
+                            }
+                            break;
+                        case "get":
+                            if ((parseInt(filterValue)!==NaN && parseInt(data[filterBy]) >= filterValue) || (parseInt(filterValue)===NaN && data[filterBy] >= filterValue)) {
+                                result.push(data);
+                            }
+                            break;
+                        case "different":
+                            if ((parseInt(filterValue)!==NaN && parseInt(data[filterBy]) != filterValue) || (parseInt(filterValue)===NaN && data[filterBy] != filterValue)) {
+                                result.push(data);
+                            }
+                            break;
+                        case "equals":
+                            if ((parseInt(filterValue)!==NaN && parseInt(data[filterBy]) == filterValue) || (parseInt(filterValue)===NaN && data[filterBy] == filterValue)) {
+                                result.push(data);
+                            }
+                            break;
                     }
-                    break;
-                    case "let":
-                    if (data[filterBy] <= filterValue)
-                    {
-                        result.push(data);
-                    }
-                    break;
-                    case "greater":
-                    if (data[filterBy] > filterValue)
-                    {
-                        result.push(data);
-                    }
-                    break;
-                    case "get":
-                    if (data[filterBy] >= filterValue)
-                    {
-                        result.push(data);
-                    }
-                    break;
-                    case "different":
-                    if (data[filterBy] != filterValue)
-                    {
-                        result.push(data);
-                    }
-                    break;
-                    case "equals":
-                    if (data[filterBy] == filterValue)
-                    {
-                        result.push(data);
-                    }
-                    break;
                 }
             }
         }
@@ -231,9 +250,11 @@ var List = {
         var result = [];
 
         // we get the items
-        for(var s = 0; s < query.resource.selector.item.length; s++)
-        {
+        for (var s = 0; s < query.resource.selector.item.length; s++) {
             var item = query.resource.selector.container + " " + query.resource.selector.item[s];
+            if (query.resource.selector.container.includes("ul")) {
+                item = query.resource.selector.container + " > " + query.resource.selector.item[s];
+            }
 
             var liEl = await page.$$(item);
 
@@ -241,14 +262,12 @@ var List = {
             try {
                 for (var j = 0; j < query.resource.attributes.length; j++) {
                     var attr = query.resource.attributes[j];
-                    if (!result.includes(attr.name))
-                    {
+                    if (!result.includes(attr.name)) {
                         result.push(attr.name);
                     }
                 }
             }
-            catch (err)
-            {
+            catch (err) {
                 result = {}
             }
         }
@@ -261,24 +280,24 @@ var List = {
         const query = request.query;
 
         // we extract the to be summarized attribute
-        for(var j = 0; j < query.parameters.length; j++)
-        {
-            if (query.parameters[j].name == "attribute")
-            {
+        for (var j = 0; j < query.parameters.length; j++) {
+            if (query.parameters[j].name == "attribute") {
                 var summarizeBy = query.parameters[j].value;
             }
-            else if (query.parameters[j].name.includes("summary_op"))
-            {
+            else if (query.parameters[j].name.includes("summary_op")) {
                 var operation = query.parameters[j].value;
             }
         }
 
         var result = [];
+        let haveAttribute;
 
         // we get the items
-        for(var s = 0; s < query.resource.selector.item.length; s++)
-        {
+        for (var s = 0; s < query.resource.selector.item.length; s++) {
             var item = query.resource.selector.container + " " + query.resource.selector.item[s];
+            if (query.resource.selector.container.includes("ul")) {
+                item = query.resource.selector.container + " > " + query.resource.selector.item[s];
+            }
 
             var liEl = await page.$$(item);
 
@@ -286,39 +305,42 @@ var List = {
             for (var i = 0; i < liEl.length; i++) {
                 var item = liEl[i];
                 var data = {};
+                haveAttribute = false;
 
                 // we try to extract each of the attributes in the reference resource
                 for (var j = 0; j < query.resource.attributes.length; j++) {
                     var attr = query.resource.attributes[j];
 
                     try {
-                        if(!data[attr.name])
+                        if (!data[attr.name])
                             data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                        haveAttribute = true;
                     } catch (err) {
                         data[attr.name] = undefined;
                     }
                 }
 
-                switch (operation) {
-                    case "only":
-                    var temp = {}
-                    summarizeBy.forEach(function(summarizeAttr) {
-                        Object.keys(data).forEach(function(key) {
-                            // key: the name of the object property
-                            if(key == summarizeAttr)
-                            {
-                                temp.key = data[key];
-                            }
-                        });
-                    });
-                    result.push(temp);
-                    break;
-                    case "remove":
-                    summarizeBy.forEach(function(summarizeAttr) {
-                        delete data[summarizeAttr];
-                    });
-                    result.push(data);
-                    break;
+                if (haveAttribute) {
+                    switch (operation) {
+                        case "only":
+                            var temp = {}
+                            summarizeBy.forEach(function (summarizeAttr) {
+                                Object.keys(data).forEach(function (key) {
+                                    // key: the name of the object property
+                                    if (key == summarizeAttr) {
+                                        temp.key = data[key];
+                                    }
+                                });
+                            });
+                            result.push(temp);
+                            break;
+                        case "remove":
+                            summarizeBy.forEach(function (summarizeAttr) {
+                                delete data[summarizeAttr];
+                            });
+                            result.push(data);
+                            break;
+                    }
                 }
             }
         }
