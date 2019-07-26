@@ -569,7 +569,7 @@ if (process.argv.length < 3) {
                             type : "date",
                             id: "bday",
                             selector : "[bot-attribute=bday]",
-                            value: "1990/15/12"
+                            value: "12/13/2000"
                         },{
                             name : "gender",
                             type : "select",

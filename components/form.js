@@ -124,15 +124,14 @@ var Form = {
                             throw "Email not valid!";
                         }
                         break;
-                    case 'date': //Needs date in JP format, this way using the date constructor I can build and submit the date corrected for the correct locale
+                    case 'date': //works only if date is passed with JP or US format, otherwise is ambigous
                         var value = query.resource.attributes[i].value;
                         if (await validateDate(value, pattern))
                         {
-                            var date = new Date(value.substring(0, 4), value.substring(5, 7), value.substring(8, 10));
-                            //var date = new Date(value);
-                            console.log(date);
-                            var newDate = date.toLocaleString(undefined, { year: 'numeric', month: '2-digit', day: '2-digit' });
-                            console.log(newDate);
+                            //var date = new Date(value.substring(0, 4), value.substring(5, 7) - 1, value.substring(8, 10), 12, 0, 0);
+                            var date = new Date(value);
+                            var newDate = date.toLocaleString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' });
+                            //newDate locale is set to en-US because puppeteer default to that if not otherwise specified
                             await page.keyboard.type(newDate);
                         }
                         else
