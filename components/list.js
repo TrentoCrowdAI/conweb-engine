@@ -29,7 +29,11 @@ var List = {
 
                     try {
                         if (!data[attr.name]) {
-                            data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                            if (attr.name == "link") {
+                                data[attr.name] = await item.$eval(attr.selector, item => item.href);
+                            } else {
+                                data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                            }
                             haveAttribute = true;
                         }
                     } catch (err) {
@@ -119,7 +123,11 @@ var List = {
 
                     try {
                         if (!data[attr.name]) {
-                            data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                            if (attr.name == "link") {
+                                data[attr.name] = await item.$eval(attr.selector, item => item.href);
+                            } else {
+                                data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                            }
                             haveAttribute = true;
                         }
                     } catch (err) {
@@ -136,8 +144,7 @@ var List = {
 
         if (operation != "noop") {
             result.sort(function (a, b) {
-                if (parseInt(a[sortBy])!==NaN) 
-                {
+                if (parseInt(a[sortBy]) !== NaN) {
                     return parseInt(a[sortBy]) < parseInt(b[sortBy]) ? -1 : 1;
                 } else {
                     return a[sortBy] < b[sortBy] ? -1 : 1;
@@ -192,7 +199,11 @@ var List = {
 
                     try {
                         if (!data[attr.name]) {
-                            data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                            if (attr.name == "link") {
+                                data[attr.name] = await item.$eval(attr.selector, item => item.href);
+                            } else {
+                                data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                            }
                             haveAttribute = true;
                         }
                     } catch (err) {
@@ -203,7 +214,7 @@ var List = {
                 if (haveAttribute) {
                     switch (operation) {
                         case "less":
-                            if ((parseInt(filterValue)!==NaN && parseInt(data[filterBy]) < filterValue) || (parseInt(filterValue)===NaN && data[filterBy] < filterValue)) {
+                            if ((parseInt(filterValue) !== NaN && parseInt(data[filterBy]) < filterValue) || (parseInt(filterValue) === NaN && data[filterBy] < filterValue)) {
                                 console.log("data[filterBy] < filterValue")
                                 console.log(data[filterBy])
                                 console.log(filterValue)
@@ -212,27 +223,27 @@ var List = {
                             }
                             break;
                         case "let":
-                            if ((parseInt(filterValue)!==NaN && parseInt(data[filterBy]) <= filterValue) || (parseInt(filterValue)===NaN && data[filterBy] <= filterValue)) {
+                            if ((parseInt(filterValue) !== NaN && parseInt(data[filterBy]) <= filterValue) || (parseInt(filterValue) === NaN && data[filterBy] <= filterValue)) {
                                 result.push(data);
                             }
                             break;
                         case "greater":
-                            if ((parseInt(filterValue)!==NaN && parseInt(data[filterBy]) > filterValue) || (parseInt(filterValue)===NaN && data[filterBy] > filterValue)) {
+                            if ((parseInt(filterValue) !== NaN && parseInt(data[filterBy]) > filterValue) || (parseInt(filterValue) === NaN && data[filterBy] > filterValue)) {
                                 result.push(data);
                             }
                             break;
                         case "get":
-                            if ((parseInt(filterValue)!==NaN && parseInt(data[filterBy]) >= filterValue) || (parseInt(filterValue)===NaN && data[filterBy] >= filterValue)) {
+                            if ((parseInt(filterValue) !== NaN && parseInt(data[filterBy]) >= filterValue) || (parseInt(filterValue) === NaN && data[filterBy] >= filterValue)) {
                                 result.push(data);
                             }
                             break;
                         case "different":
-                            if ((parseInt(filterValue)!==NaN && parseInt(data[filterBy]) != filterValue) || (parseInt(filterValue)===NaN && data[filterBy] != filterValue)) {
+                            if ((parseInt(filterValue) !== NaN && parseInt(data[filterBy]) != filterValue) || (parseInt(filterValue) === NaN && data[filterBy] != filterValue)) {
                                 result.push(data);
                             }
                             break;
                         case "equals":
-                            if ((parseInt(filterValue)!==NaN && parseInt(data[filterBy]) == filterValue) || (parseInt(filterValue)===NaN && data[filterBy] == filterValue)) {
+                            if ((parseInt(filterValue) !== NaN && parseInt(data[filterBy]) == filterValue) || (parseInt(filterValue) === NaN && data[filterBy] == filterValue)) {
                                 result.push(data);
                             }
                             break;
@@ -312,9 +323,14 @@ var List = {
                     var attr = query.resource.attributes[j];
 
                     try {
-                        if (!data[attr.name])
-                            data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
-                        haveAttribute = true;
+                        if (!data[attr.name]) {
+                            if (attr.name == "link") {
+                                data[attr.name] = await item.$eval(attr.selector, item => item.href);
+                            } else {
+                                data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
+                            }
+                            haveAttribute = true;
+                        }
                     } catch (err) {
                         data[attr.name] = undefined;
                     }
