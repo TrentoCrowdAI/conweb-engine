@@ -197,7 +197,13 @@ var Form = {
         //Submits the form
         await page.$eval(formSelector, form => form.submit());//*/
 
-        return result;
+        await page.waitForNavigation();
+
+        let link = page.url();
+
+        let completeResult = {result: result, link: link};
+
+        return completeResult;
     }
 };
 

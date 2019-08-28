@@ -529,10 +529,10 @@ if (process.argv.length < 3) {
         sia improbabile che si verifichi la suddetta condizione, da esporre il problema e confrontarsi.
         */
             var request = {
-                url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage3.html",
+                url: "http://localhost:3000/examples/testform.html",
                 component: "form",
                 query: {
-                    intent : "fill_form",
+                    intent : "fill_form", 
                     resource : {
                         name : "datiUtente",
                         selector: { container: "form#du", item: ["input", "select"] },
