@@ -59,3 +59,6 @@ typings/
 
 # next.js build output
 .next
+
+# All screenshots eventually taken and not removed before pushing
+.png

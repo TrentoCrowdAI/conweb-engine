@@ -12,15 +12,6 @@ then it returns a .json with attribue:value pairs, for now only on lists, but we
 include a snapshot of how the list looks in the browser for every interaction. Convert the -bmp to base64 so that we don't store them, but just render when requested
 <mimetype> <base64_encoed_image>*/
 
-var url;
-
-if (process.argv.length < 3) {
-    console.log("Usage:   node index.js url");
-    console.log("Example: node index.js https://nodejs.org/api/url.html");
-} else {
-    url = process.argv[2];
-}
-
 //LIST RESOURCES EXAMPLE
     /*var request = {
         url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage.html",
@@ -48,7 +39,7 @@ if (process.argv.length < 3) {
                     selector : "[bot-attribute=length]"
                 }]
             },}
-        };*/
+        };//*/
 
     /*var request = {
         url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage2.html",
@@ -528,11 +519,11 @@ if (process.argv.length < 3) {
         ma con funzioni diverse o che appartengono a sezioni diverse. Non ho bene idea di come procedere tuttavia, nel senso che credo
         sia improbabile che si verifichi la suddetta condizione, da esporre il problema e confrontarsi.
         */
-            var request = {
+            /*var request = {
                 url: "http://localhost:3000/examples/testform.html",
                 component: "form",
                 query: {
-                    intent : "fill_form", 
+                    intent : "fill_form",
                     resource : {
                         name : "datiUtente",
                         selector: { container: "form#du", item: ["input", "select"] },
@@ -641,6 +632,26 @@ if (process.argv.length < 3) {
                     }
                 }
             };//*/
+
+            //READ ARTICLE EXAMPLE
+                /*var request = {
+                    url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage4.html",
+                    component: "article",
+                    query: {
+                        intent : "read_article",
+                        resource : {
+                            name : "forecast",
+                            selector: { container: "article#frcst", item: ["div.forecast"] },
+                            type: "USWeather",
+                            attributes : [{
+                                name : "title",
+                                selector : "[bot-attribute=articleTitle]"
+                            },{
+                                name : "Article Body",
+                                selector : "[bot-attribute=articleBody]"
+                            }]
+                        },}
+                    };//*/
 
 
 try {
