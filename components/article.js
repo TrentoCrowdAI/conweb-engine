@@ -8,14 +8,14 @@ var Article = {
 
         const title = await page.$(query.resource.selector);
         const titleText = await page.evaluate(title => title.innerText, title);
-        data["Title"] = titleText;
+        data["title"] = titleText;
 
         for(var i = 0; i < query.resource.attributes.length; i++)
         {
             try {
                 const article = await page.$(query.resource.attributes[i]);
                 const articleText = await page.evaluate(article => article.innerText, article);
-                data["Body"] = articleText;
+                data["body"] = articleText;
             } catch (err) {
                 continue;
             }
@@ -34,14 +34,14 @@ var Article = {
 
         const title = await page.$(query.resource.selector);
         const titleText = await page.evaluate(title => title.innerText, title);
-        data["Title"] = titleText;
+        data["title"] = titleText;
 
         for(var i = 0; i < query.resource.attributes.length; i++)
         {
             try {
                 const article = await page.$(query.resource.attributes[i]);
                 const articleText = await page.evaluate(article => article.innerText, article);
-                data["Body"] = articleText.substring(0, 300) + "...";
+                data["body"] = articleText.substring(0, 800) + "...";
             } catch (err) {
                 continue;
             }
