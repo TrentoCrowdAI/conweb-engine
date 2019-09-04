@@ -98,6 +98,11 @@ var Form = {
                 {
                     case 'text':
                     case 'password': //Bisogna trovare un modo di validare secondo le regole del form
+                        //const inputValue = await page.$eval(selector, el => el.value);
+                        //for (let i = 0; i < inputValue.length; i++) {
+                        //    await page.press('Backspace');
+                        //}
+                        await page.focus(selector);
                         var value = query.resource.attributes[i].value;
                         await page.keyboard.type(value);
                         break;
@@ -194,12 +199,9 @@ var Form = {
         await timeout(1000); //Needed only for screenshot, otherwise puppeteer doesn't have enough time
         await page.screenshot({ path: 'proof.png', fullPage: true });
 
-        //Submits the form
-        await Promise.all([page.$eval(formSelector, form => form.submit()), page.waitForNavigation()]);
-        //await page.$eval(formSelector, form => form.submit());//*/
+        await page.$eval(formSelector, form => form.submit());//*/
 
-        //await page.waitForNavigation();
-        console.log(' -> doneeeeeeeeeeeeeeeeeeee!  ');
+        await page.waitForNavigation({timeout: 0});
 
         let link = page.url();
 
