@@ -195,9 +195,11 @@ var Form = {
         await page.screenshot({ path: 'proof.png', fullPage: true });
 
         //Submits the form
-        await page.$eval(formSelector, form => form.submit());//*/
+        await Promise.all([page.$eval(formSelector, form => form.submit()), page.waitForNavigation()]);
+        //await page.$eval(formSelector, form => form.submit());//*/
 
-        await page.waitForNavigation();
+        //await page.waitForNavigation();
+        console.log(' -> doneeeeeeeeeeeeeeeeeeee!  ');
 
         let link = page.url();
 
