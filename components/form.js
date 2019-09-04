@@ -98,10 +98,10 @@ var Form = {
                 {
                     case 'text':
                     case 'password': //Bisogna trovare un modo di validare secondo le regole del form
-                        //const inputValue = await page.$eval(selector, el => el.value);
-                        //for (let i = 0; i < inputValue.length; i++) {
-                        //    await page.press('Backspace');
-                        //}
+                        const inputValue = await page.$eval(selector, el => el.value);
+                        for (let i = 0; i < inputValue.length; i++) {
+                            await page.press('Backspace');
+                        }
                         await page.focus(selector);
                         var value = query.resource.attributes[i].value;
                         await page.keyboard.type(value);
