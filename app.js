@@ -638,20 +638,57 @@ include a snapshot of how the list looks in the browser for every interaction. C
                     url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage4.html",
                     component: "article",
                     query: {
-                        intent : "read_article",
+                        intent : "article_read",
                         resource : {
-                            name : "forecast",
-                            selector: { container: "article#frcst", item: ["div.forecast"] },
-                            type: "USWeather",
-                            attributes : [{
-                                name : "title",
-                                selector : "[bot-attribute=articleTitle]"
-                            },{
-                                name : "Article Body",
-                                selector : "[bot-attribute=articleBody]"
-                            }]
-                        },}
+                            selector: "[bot-attribute=articleTitle]",
+                            attributes : [
+                            "[bot-attribute=articleBody]"
+                            ]}
+                        }
                     };//*/
+
+                /*var request = {
+                    "url": "https://edition.cnn.com/2019/09/03/uk/brexit-parliament-returns-no-deal-gbr-intl/index.html",
+                    "component": "article",
+                    "query": {
+                        "intent": "article_read",
+                        "resource": {
+                            "selector": "h1",
+                            "attributes": [
+                                "div.Article__primary",
+                                "div[itemprop=articleBody]",
+                                "div.BasicArticle__main"]
+                            }
+                         }
+                     };//*/
+
+                /*var request = {
+                    url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage4.html",
+                    component: "article",
+                    query: {
+                        intent : "article_sum",
+                        resource : {
+                            selector: "[bot-attribute=articleTitle]",
+                            attributes : [
+                                "article#frcst"
+                        ]}
+                    }
+                };//*/
+
+                 /*var request = {
+                     "url": "https://edition.cnn.com/2019/09/03/uk/brexit-parliament-returns-no-deal-gbr-intl/index.html",
+                     "component": "article",
+                     "query": {
+                         "intent": "article_sum",
+                         "resource": {
+                             "selector": "h1",
+                             "attributes": [
+                                 "div.Article__primary",
+                                 "div[itemprop=articleBody]",
+                                 "div.BasicArticle__main"]
+                             }
+                          }
+                      };//*/
 
 
 try {

@@ -1,43 +1,55 @@
 var Article = {
-    'read_article': async (page, request) => {
+    'article_read': async (page, request) => {
         //Reads an article
         const query = request.query;
 
         var result = [];
-        let haveAttribute;
+        var data = {};
 
-        // we get the items
-        for (var s = 0; s < query.resource.selector.item.length; s++) {
-            var item = query.resource.selector.container + " " + query.resource.selector.item[s];
-            if (query.resource.selector.container.includes("ul")) {
-                item = query.resource.selector.container + " > " + query.resource.selector.item[s];
-            }
+        const title = await page.$(query.resource.selector);
+        const titleText = await page.evaluate(title => title.innerText, title);
+        data["Title"] = titleText;
 
-            var artEl = await page.$$(item);
-
-            // we iterate over the items and extract the attributes
-            for (var i = 0; i < artEl.length; i++) {
-                var item = artEl[i];
-                var data = {};
-
-                // we try to extract each of the attributes in the reference resource
-                for (var j = 0; j < query.resource.attributes.length; j++) {
-                    var attr = query.resource.attributes[j];
-
-                    try {
-                        if (!data[attr.name]) {
-                            data[attr.name] = await item.$eval(attr.selector, item => item.innerText);
-                        }
-                    } catch (err) {
-                        data[attr.name] = undefined;
-                    }
-                }
-                result.push(data);
+        for(var i = 0; i < query.resource.attributes.length; i++)
+        {
+            try {
+                const article = await page.$(query.resource.attributes[i]);
+                const articleText = await page.evaluate(article => article.innerText, article);
+                data["Body"] = articleText;
+            } catch (err) {
+                continue;
             }
         }
+        result.push(data);
 
         return result;
-    }
+    },
+
+    'article_sum': async (page, request) => {
+        //Reads an article
+        const query = request.query;
+
+        var result = [];
+        var data = {};
+
+        const title = await page.$(query.resource.selector);
+        const titleText = await page.evaluate(title => title.innerText, title);
+        data["Title"] = titleText;
+
+        for(var i = 0; i < query.resource.attributes.length; i++)
+        {
+            try {
+                const article = await page.$(query.resource.attributes[i]);
+                const articleText = await page.evaluate(article => article.innerText, article);
+                data["Body"] = articleText.substring(0, 300) + "...";
+            } catch (err) {
+                continue;
+            }
+        }
+        result.push(data);
+
+        return result;
+    },
 
 };
 
