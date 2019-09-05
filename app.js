@@ -520,7 +520,7 @@ include a snapshot of how the list looks in the browser for every interaction. C
         sia improbabile che si verifichi la suddetta condizione, da esporre il problema e confrontarsi.
         */
             /*var request = {
-                url: "http://localhost:3000/examples/testform.html",
+                url: "file:///home/matteo/Uni/Tirocinio/conweb-engine/testPage3.html",
                 component: "form",
                 query: {
                     intent : "fill_form",
@@ -575,6 +575,48 @@ include a snapshot of how the list looks in the browser for every interaction. C
                             name : "remember",
                             type : "radio",
                             selector : "[bot-attribute=remember]"
+                        }]
+                    }
+                }
+            };//*/
+
+            /*var request = {
+                "url": "https://www.google.com/search?source=hp&ei=Dn5xXbL6FovJkwWP6Zy4Dg&q=us",
+                "component": "form",
+                "query": {
+                    "intent": "fill_form",
+                    "resource": {
+                        "type": "search",
+                        "selector": {
+                            "container": "form#tsf"
+                        },
+                        "attributes": [
+                            {
+                                "name": "search word",
+                                "selector": "input.gLFyf.gsfi",
+                                "type": "text",
+                                "value": "canada"
+                            }
+                        ],
+                        "name": "search"
+                    }
+                }
+            };//*/
+
+            /*var request = {
+                url: "https://www.google.com/search?source=hp&ei=xX9xXeD_DIHykwXqqaTQAw&q=cnn",
+                component: "form",
+                query: {
+                    intent : "fill_form",
+                    resource : {
+                        name : "search",
+                        selector: { container: "form#tsf"},
+                        type: "search", //per esempi reali non ho idea di cosa mettere nei campi fino a qui
+                        attributes : [{
+                            name : "search word",
+                            type : "text",
+                            selector : "input.gLFyf",
+                            value: "trump"
                         }]
                     }
                 }
