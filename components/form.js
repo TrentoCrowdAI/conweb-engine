@@ -199,9 +199,13 @@ var Form = {
         await timeout(1000); //Needed only for screenshot, otherwise puppeteer doesn't have enough time
         await page.screenshot({ path: 'proof.png', fullPage: true });
 
+        const navigationPromise = page.waitForNavigation();
         await page.$eval(formSelector, form => form.submit());//*/
+        await navigationPromise; // The navigationPromise resolves after navigation has finished
 
-        await page.waitForNavigation({timeout: 10000});
+
+
+        //await page.waitForNavigation({timeout: 10000});
 
         let link = page.url();
 
