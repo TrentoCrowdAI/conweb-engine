@@ -201,7 +201,7 @@ var Form = {
 
         await page.$eval(formSelector, form => form.submit());//*/
 
-        await page.waitForNavigation({timeout: 0});
+        await page.waitForNavigation();
 
         let link = page.url();
 
